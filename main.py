@@ -1,13 +1,15 @@
 from game import Game
 import pygame
 import sys
+import os
 
 def main():
     pygame.init()
     pygame.key.stop_text_input()
     screen = pygame.display.set_mode((1280, 720))
-    pygame.display.set_caption("Pygame Example")
-
+    pygame.display.set_caption("Portal-2D")
+    icon_image = pygame.image.load(os.path.join(os.path.dirname(__file__), "./assets/ico/RanaLogo.png"))
+    pygame.display.set_icon(icon_image)
     # 创建 Game 实例    
     game = Game.get_instance(screen)
 

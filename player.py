@@ -53,14 +53,12 @@ class Jumping:
     def updateFalling(self):
         self.jumpVelocity -= self.gravity
         self.jumpVelocity = max(self.jumpVelocity, -6 * self.baseJump)
-from uilts import Vector
-from uilts import Hitbox
+from components import Vector, Hitbox
 class Entity:
     def __init__(self, hitbox : Hitbox) -> None:
         self.hitbox = hitbox.copy()
         self.velocity = Vector(0, 0)
     def isOnGround(self):
-        # self.hitbox.collidedictall
         down_hitbox = self.hitbox.copy() + (0, 1)
         from game import Game
         for block in Game.get_instance().map_manager.blocks:
@@ -101,7 +99,7 @@ class Player(Entity):
     
     def __init__(self, hitbox : Hitbox) -> None:
         super().__init__(hitbox)
-        self.jumping = Jumping(5, 10, 0.5, 10, 1)
+        self.jumping = Jumping(4, 9, 0.5, 10, 15)
         self.facing = 1
         self.isSpaceHeld = False
         self.MaxSpeed = 6
