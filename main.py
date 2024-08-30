@@ -25,7 +25,7 @@ def main():
         game.loop()
 
         pygame.display.flip()
-        pygame.time.Clock().tick(75)
+        pygame.time.Clock().tick(90)
 
     pygame.quit()
     sys.exit()
