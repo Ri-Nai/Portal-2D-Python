@@ -11,6 +11,7 @@ class Door(Tile):
         self.width = width
         self.height = height
 
+    #TODO:
     def draw(self):#暂定
         pass
 

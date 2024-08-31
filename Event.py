@@ -9,6 +9,7 @@ class GameEvent(Tile):
         self.affect = affect
 
     def update(self):
+        #TODO:
         entities = kong #待定
         isActivate = False
         
@@ -28,6 +29,7 @@ class GameEvent(Tile):
             self.onActivate(self)
 
         for id in self.affect:
+            #TODO:
             event= kong #待定
             event.activate(self)
 
@@ -36,6 +38,7 @@ class GameEvent(Tile):
             self.onDeactivate(self)
         self.activated = False
         for id in self.affect:
+            #TODO:
             event = kong #待定
             event.deactivate(self)
 
