@@ -13,7 +13,170 @@
             "opacity": 1
         },
         {
-            "tiles": [],
+            "tiles": [
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 80,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 120,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 160,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 200,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 240,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 280,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 320,
+                        "width": 280,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 520,
+                        "y": 320,
+                        "width": 600,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 360,
+                        "width": 760,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 960,
+                        "y": 360,
+                        "width": 160,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 400,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 440,
+                        "width": 1040,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 480,
+                        "width": 440,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 680,
+                        "y": 480,
+                        "width": 440,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 520,
+                        "width": 440,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 680,
+                        "y": 520,
+                        "width": 440,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 560,
+                        "width": 200,
+                        "height": 40
+                    }
+                },
+                {
+                    "type": 1,
+                    "hitbox": {
+                        "x": 80,
+                        "y": 600,
+                        "width": 200,
+                        "height": 40
+                    }
+                }
+            ],
             "opacity": 1
         },
         {

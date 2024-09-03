@@ -5,8 +5,7 @@ class PortalGun:
         self.status = [ False, False ]
         self.direction = Vector(1, 0)
         # 发射间隔
-        self.INTERVAL = 15
-        self.buffer = 15
+        self.buffer = self.INTERVAL = 5
         self.isShot = False
         self.isHit = False
         self.target = 0
