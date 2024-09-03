@@ -18,7 +18,8 @@ class PortalGun:
     def update_shooting(self, player : Vector, mouse : Vector):
         if self.isShot:
             return
-        self.direction = (mouse + player).normalize()
+        self.direction = (mouse - player).normalize()
+        # print(mouse, self.direction)
     def shot(self, player : Vector, type : int):
         SPEED = 25
         if self.status[ type ]:
@@ -36,27 +37,27 @@ class PortalGun:
     def draw(self):
         if not self.isShot:
             return
-        from math import atan, pi
 
         # angle = atan(self.direction.y / self.direction.x) / pi * 180
         # (self.direction.x < 0) ? (angle > 0) ? angle -= 180 : angle += 180 : angle
-        angle = self.direction.get_angle()
         from game import Game
+        """
         Game.get_instance().draw_rect(
             self.COLOR[ self.flyingType ],
+            Hitbox(
             self.position.x,
             self.position.y,
             20,
-            20,
+            20)
         )
         """
+        angle = -self.direction.get_angle()
         Game.get_instance().draw_image(
             Game.get_instance().texture_manager.get_texture("portalBullets", self.COLOR[ self.flyingType ]),
-            Hitbox(self.position.x, self.position.y, 20, 20),
+            Hitbox(self.position.x - 20, self.position.y - 20, 40, 40),
             Hitbox(10, 10, 20, 20),
             angle
         )
-        """
         """
         TODO:
 
@@ -66,6 +67,8 @@ class PortalGun:
         window.$game.ctx.drawImage(rotated, 10, 10, 20, 20, self.position.x, self.position.y, 20, 20)
         """
     def update(self):
+        if not self.isShot:
+            return
         from game import Game
         # edges = window.$game.map.edges
         edges = Game.get_instance().map_manager.edges
@@ -81,17 +84,19 @@ class PortalGun:
 
             done = False
             for edge in edges:
-                if edge.contains(self.position.to_rect()):
+                if edge.contains_point(self.position):
                     self.isShot = False
                     self.isHit = True
                     self.edge = edge
+                    # last_position = self.position.copy()
                     self.position = fix_position(self.position, edge)
+                    # print(last_position, self.position)
                     done = True
                     break
             if done:
                 return
             for super_edge in super_edges:
-                if (super_edge.contains(self.position.to_rect())):
+                if super_edge.contains_point(self.position):
                     self.isShot = False
                     done = True
                     break
@@ -115,4 +120,4 @@ def fix_position(position : Vector, edge : Edge):
         Vector(position.x, edge.y + edge.height),
         Vector(edge.x + edge.width, position.y)
     ]
-    return fix[ edge.facing ]
+    return fix[ edge.facing ].copy()
