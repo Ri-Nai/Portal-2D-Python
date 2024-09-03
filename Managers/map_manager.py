@@ -4,13 +4,13 @@ basic_size = 40
 half_size = basic_size // 2
 class Tile(Hitbox):
     colors = ["red", "green", "blue"]
-    def __init__(self, x, y, width, height, type):
-        super().__init__(x, y, width, height)
-        self.type = type
         # 这里添加 Tile 类特有的初始化代码
-    def __init__(self, hitbox : dict, type):
-        super().__init__(hitbox["x"], hitbox["y"], hitbox["width"], hitbox["height"])
-        self.type = type
+    def __init__(self, hitbox, type_ : int):
+        if type(hitbox) == dict:
+            super().__init__(hitbox["x"], hitbox["y"], hitbox["width"], hitbox["height"])
+        else:
+            super().__init__(hitbox.x, hitbox.y, hitbox.width, hitbox.height)
+        self.type = type_
     def draw(self):
         from game import Game
         for i in range(0, self.width, basic_size):
@@ -25,10 +25,7 @@ class Layer:
         for tile in self.tiles:
             tile.draw()
 class Edge(Tile):
-    def __init__(self, x, y, width, height, type : int, facing : int):
-        super().__init__(x, y, width, height, type)
-        self.facing = facing
-    def __init__(self, hitbox : dict, type, facing):
+    def __init__(self, hitbox, type : int, facing : int):
         super().__init__(hitbox, type)
         self.facing = facing
     def draw(self):

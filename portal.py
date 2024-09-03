@@ -1,5 +1,5 @@
 from Managers.map_manager import Edge, basic_size, half_size
-from components import Hitbox, Vector
+from components import Hitbox, Vector, create_hitbox
 unitDirection = [
     Vector(0, -1),
     Vector(-1, 0),
@@ -20,12 +20,11 @@ portal_size = [
     Vector(portalWidth, 2 * portalRadius)
 ]
 class Portal(Edge):
-    def __init__(self, x, y, width, height, type, facing : int):
-        position = Vector(x, y)
+    def __init__(self, position = Vector(), type = -1, facing : int  = 0):
         position += portalDirection[facing]
-        size = Vector(width, height)
-        size += portal_size[ facing & 1 ]
-        super().__init__(type, position.x, position.y, size.x, size.y, facing)
+        # size = Vector(width, height)
+        size = portal_size[ facing & 1 ]
+        super().__init__(Hitbox(position.x, position.y, size.x, size.y), type, facing)
         self.infacing = facing + 2 & 3
     def isMoveIn(self, hitbox : Hitbox):
         this_left = self.x
@@ -88,7 +87,7 @@ class Portal(Edge):
             sizeX, sizeY
         )
         """
-def valid(position : Vector, edge : Edge, anotherPortal : "Portal"):
+def is_valid_position(position : Vector, edge : Edge, anotherPortal : "Portal"):
     portal_size_now = portal_size[ edge.facing & 1 ]
 
     if edge.type != 2:
@@ -102,16 +101,16 @@ def valid(position : Vector, edge : Edge, anotherPortal : "Portal"):
 
     if anotherPortal.type == -1:
         return edge_length >= portal_length
-    hitAnother = anotherPortal.collidedict(Hitbox(left_up, right_down - left_up))
+    hitAnother = anotherPortal.collidedict(create_hitbox(left_up, right_down))
 
     return edge_length >= portal_length and not hitAnother
-def fixPosition(position : Vector, edge : Edge):
+def fix_position(position : Vector, edge : Edge):
     left_up = position + portalDirection[ edge.facing ]
     right_down = left_up + portal_size[ edge.facing & 1 ]
-    if edge.contains(left_up) and edge.contains(right_down):
+    if edge.contains(left_up.to_rect()) and edge.contains(right_down.to_rect()):
         return position
 
-    if edge.contains(right_down):
+    if edge.contains(right_down.to_rect()):
         return edge.get_position() - portalDirection[ edge.facing ]
 
     else:
