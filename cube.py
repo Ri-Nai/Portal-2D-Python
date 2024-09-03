@@ -38,8 +38,8 @@ class Cube(Entity):
             self.hitbox.x = player.hitbox.x
             self.hitbox.y = player.hitbox.y
             offset = Vector(
-                -0.5 * self.cube_size + (player.facing + 1) * (Player.PlayerSize.X) / 2,
-                0.2 * Player.PlayerSize.y,
+                -0.5 * self.cube_size + (player.facing + 1) * (Player.player_size.x) / 2,
+                0.2 * Player.player_size.y,
             )
             # TODO:
             # this.hitbox.position.addEqual(offset)
@@ -52,7 +52,7 @@ class Cube(Entity):
             # TODO:
             # self.updateXY 暂定
 
-        # this.hitbox.position = this.hitbox.position.round();
+        # this.hitbox.position = this.hitbox.position.round()
         self.checkOutOfMap()
 
     def draw(self):

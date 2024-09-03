@@ -4,9 +4,12 @@ from Managers import DataManager
 from Managers import MapManager, basic_size
 from Managers import MouseManager
 from Managers import KeyboardManager
+from Managers import TextureManager
 from player import Player
 from components import Hitbox, Vector
 import os
+
+
 class Game:
     _instance = None
 
@@ -17,11 +20,16 @@ class Game:
         self.screen = screen
         self.data_manager = DataManager()
         self.map_manager = MapManager()
-        self.map_manager.loadFromURL(os.path.join(os.path.dirname(__file__), "assets/stages/maps", "Test2.json"))
+        self.map_manager.loadFromURL(
+            os.path.join(os.path.dirname(__file__), "assets/stages/maps", "Test2.json")
+        )
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
+        self.texture_manager = TextureManager(os.path.join(os.path.dirname(__file__), "assets/imgs/textures.json"))
 
-        self.player = Player(Hitbox(4 * basic_size, 4 * basic_size, 1.2 * basic_size, 1.8 * basic_size))
+        self.player = Player(
+            Hitbox(4 * basic_size, 4 * basic_size, 1.2 * basic_size, 1.8 * basic_size)
+        )
         self.computations = []
         self.renderings = []
         self.computations.append(self.mouse_manager.update)
@@ -35,7 +43,17 @@ class Game:
         if cls._instance is None:
             cls._instance = cls(screen)
         return cls._instance
-
+    def draw_rect(self, color, dest_rect):
+        # self.screen.fill(color, dest_rect)
+        pygame.draw.rect(self.screen, color, dest_rect)
+    def draw_image(self, texture, dest_rect, src_rect=None):
+        """绘制图像"""
+        if not texture:
+            print("Texture not found")
+            return
+        resized_texture = pygame.transform.scale(texture, (dest_rect.width, dest_rect.height))
+        # 如果 src_rect 为 None，则绘制整个图像
+        self.screen.blit(resized_texture, dest_rect, src_rect)
     def loop(self):
         # 游戏主循环代码
         self.screen.fill((255, 255, 255))
@@ -43,4 +61,3 @@ class Game:
             computation()
         for rendering in self.renderings:
             rendering()
-

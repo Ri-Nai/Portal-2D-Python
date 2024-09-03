@@ -27,7 +27,7 @@ class Jumping:
             if not self.isJumping:
                 self.isFalling = True
             self.coyoteTimer = max(self.coyoteTimer - 1, 0)
-            print(pygame.time.get_ticks() / 1000, self.isJumping, self.coyoteTimer, self.jumpBuffer)
+            # print(pygame.time.get_ticks() / 1000, self.isJumping, self.coyoteTimer, self.jumpBuffer)
             if not self.isJumping and self.jumpBuffer > 0 and self.coyoteTimer > 0:
                 self.startJump()
     def startJump(self):
@@ -50,7 +50,7 @@ class Jumping:
         elif self.isFalling:
             self.jumpVelocity -= self.gravity
         self.jumpBuffer = max(self.jumpBuffer - 1, 0)
-        print(self.jumpBuffer)
+        # print(self.jumpBuffer)
     def setJumpBuffer(self):
         self.jumpBuffer = self.jumpBufferTime
     def updateFalling(self):
@@ -104,29 +104,29 @@ class Entity:
         from math import exp, sqrt, copysign
         nextVelocityX = self.velocity.x
         def decelerate(now, deceleration):
-            return sqrt(max(now * now - deceleration * now * now, 0)) * copysign(now);
-        onGround = self.isOnGround();
+            return sqrt(max(now * now - deceleration * now * now, 0)) * copysign(now)
+        onGround = self.isOnGround()
         if not self.isflying and abs(self.velocity.x) <= self.MaxSpeed:
             if move == 0:
-                nextVelocityX = self.velocity.x * exp(-0.5);
+                nextVelocityX = self.velocity.x * exp(-0.5)
             else:
-                nextVelocityX = move * min(sqrt(self.velocity.x * self.velocity.x + 10), self.MaxSpeed);
+                nextVelocityX = move * min(sqrt(self.velocity.x * self.velocity.x + 10), self.MaxSpeed)
         else:
             if move == 0:
                 if onGround:
-                    nextVelocityX = decelerate(self.velocity.x, (0.16) * (2));
+                    nextVelocityX = decelerate(self.velocity.x, (0.16) * (2))
                 else:
-                    nextVelocityX = decelerate(self.velocity.x, (0.01) * (2));
+                    nextVelocityX = decelerate(self.velocity.x, (0.01) * (2))
             elif move * self.velocity.x > 0:
                 if onGround:
-                    nextVelocityX = decelerate(self.velocity.x, 0.3);
+                    nextVelocityX = decelerate(self.velocity.x, 0.3)
                 else:
-                    nextVelocityX = decelerate(self.velocity.x, 0.01);
+                    nextVelocityX = decelerate(self.velocity.x, 0.01)
             else:
                 if onGround:
-                    nextVelocityX = decelerate(self.velocity.x, 0.5);
+                    nextVelocityX = decelerate(self.velocity.x, 0.5)
                 else:
-                    nextVelocityX = decelerate(self.velocity.x, 0.1);
+                    nextVelocityX = decelerate(self.velocity.x, 0.1)
         return nextVelocityX
     def updateXY(self, controllerX, controllerY):
         self.updateJumping(controllerY)

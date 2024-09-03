@@ -15,7 +15,8 @@ class Tile(Rect):
         from game import Game
         for i in range(0, self.width, basic_size):
             for j in range(0, self.height, basic_size):
-                pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size, basic_size))
+                # pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size, basic_size))
+                Game.get_instance().draw_rect(Tile.colors[self.type], (self.x + i, self.y + j, basic_size, basic_size))
 class Layer:
     def __init__(self):
         self.tiles = []
@@ -34,7 +35,8 @@ class Edge(Tile):
         from game import Game
         for i in range(0, self.width, basic_size // 2):
             for j in range(0, self.height, basic_size // 2):
-                pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size // 2, basic_size // 2))
+                # pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size // 2, basic_size // 2))
+                Game.get_instance().draw_rect(Tile.colors[self.type], (self.x + i, self.y + j, basic_size // 2, basic_size // 2))
 
 class MapManager:
     def __init__(self):
