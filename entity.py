@@ -67,7 +67,7 @@ class Entity:
     def isOnGround(self):
         down_hitbox = self.hitbox.copy() + (0, 1)
         from game import Game
-        for block in Game.get_instance().map_manager.blocks:
+        for block in Game.get_instance().map_manager.super_edges:
             if block.colliderect(down_hitbox):
                 return True
         return False
@@ -77,7 +77,7 @@ class Entity:
             nonlocal flag
             self.hitbox += delta
             from game import Game
-            collided = self.hitbox.checkHits(Game.get_instance().map_manager.blocks, lambda : self.hitbox.move_ip(-delta[0], -delta[1]))
+            collided = self.hitbox.checkHits(Game.get_instance().map_manager.super_edges, lambda : self.hitbox.move_ip(-delta[0], -delta[1]))
             if collided:
                 flag |= 1 << value
             return not collided

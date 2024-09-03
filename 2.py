@@ -1,6 +1,9 @@
 import pygame
-import sys
-from components import Vector, Hitbox
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
 class MouseManager:
     def __init__(self, screen):
         self.screen = screen
@@ -38,3 +41,38 @@ class MouseManager:
 
     def get_position(self):
         return Vector(self.x, self.y)
+
+
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    clock = pygame.time.Clock()
+    mouse_manager = MouseManager(screen)
+    paused = False  # 游戏初始状态为未暂停
+    mouse_manager.capture()  # 初始捕获鼠标
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    paused = not paused  # 切换暂停状态
+                    mouse_manager.uncapture() if paused else mouse_manager.capture()
+            elif event.type == pygame.MOUSEBUTTONDOWN and not paused:
+                mouse_manager.capture()
+
+        mouse_manager.update()
+        screen.fill((0, 0, 0))
+        mouse_manager.draw()
+        # draw_ui(screen, paused)  # 绘制UI界面
+        if not paused:
+            # 这里添加游戏的主逻辑
+            pass
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()

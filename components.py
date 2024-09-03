@@ -3,6 +3,9 @@ from pygame import Rect
 class Vector(Vector2):
     def round(self):
         return Vector2(round(self.x), round(self.y))
+    def get_angle(self):
+        from math import atan2
+        return atan2(self.y, self.x)
 class Hitbox(Rect):
     def checkHits(self, hitboxes, operate = None) -> bool:
         for hitbox in hitboxes:
@@ -11,6 +14,10 @@ class Hitbox(Rect):
                     operate()
                 return True
         return False
+    def get_size(self):
+        return Vector(self.width, self.height)
+    def get_position(self):
+        return Vector(self.x, self.y)
     def __add__(self, other):
         if type(other) == tuple:
             return Hitbox(self.x + other[0], self.y + other[1], self.width, self.height)

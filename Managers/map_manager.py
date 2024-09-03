@@ -1,8 +1,8 @@
 import pygame
-from pygame import Rect
+from components import Vector, Hitbox
 basic_size = 40
 half_size = basic_size // 2
-class Tile(Rect):
+class Tile(Hitbox):
     colors = ["red", "green", "blue"]
     def __init__(self, x, y, width, height, type):
         super().__init__(x, y, width, height)
@@ -25,7 +25,7 @@ class Layer:
         for tile in self.tiles:
             tile.draw()
 class Edge(Tile):
-    def __init__(self, x, y, width, height, type, facing):
+    def __init__(self, x, y, width, height, type : int, facing : int):
         super().__init__(x, y, width, height, type)
         self.facing = facing
     def __init__(self, hitbox : dict, type, facing):
@@ -43,6 +43,7 @@ class MapManager:
         self.layers : list[Layer] = []
         self.blocks : list[Tile] = []
         self.edges : list[Edge] = []
+        self.super_edges : list[Edge] = []
     def loadFromURL(self, url):
         from game import Game
         data = Game.get_instance().data_manager.loadJSON(url)
@@ -55,6 +56,8 @@ class MapManager:
             self.blocks.append(Tile(block["hitbox"], block["type"]))
         for edge in data["edges"]:
             self.edges.append(Edge(edge["hitbox"], edge["type"], edge["facing"]))
+        for super_edge in data["super_edges"]:
+            self.super_edges.append(Edge(super_edge["hitbox"], super_edge["type"], super_edge["facing"]))
     def draw(self):
         for block in self.blocks:
             block.draw()
