@@ -1,7 +1,7 @@
 # game.py
 import pygame
 from Managers import DataManager
-from Managers import MapManager, basicSize
+from Managers import MapManager, basic_size
 from Managers import MouseManager
 from Managers import KeyboardManager
 from player import Player
@@ -21,7 +21,7 @@ class Game:
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
 
-        self.player = Player(Hitbox(4 * basicSize, 4 * basicSize, 1.2 * basicSize, 1.8 * basicSize))
+        self.player = Player(Hitbox(4 * basic_size, 4 * basic_size, 1.2 * basic_size, 1.8 * basic_size))
         self.computations = []
         self.renderings = []
         self.computations.append(self.mouse_manager.update)

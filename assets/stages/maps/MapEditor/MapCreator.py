@@ -20,7 +20,7 @@ for i in range(len(A)):
     A[i].append(-1.5)
 print(A)
 print(len(A), len(A[0]))
-basicSize = 40
+basic_size = 40
 layer_background_texture = 3
 layer_block = 4
 layer_edge = 5
@@ -38,10 +38,10 @@ def fill_block():
                             "type" : abs(A[i][j - 1]),
                             "hitbox" :
                             {
-                                "x" : (j - len) * basicSize,
-                                "y" : i * basicSize,
-                                "width" : len * basicSize,
-                                "height" : basicSize,
+                                "x" : (j - len) * basic_size,
+                                "y" : i * basic_size,
+                                "width" : len * basic_size,
+                                "height" : basic_size,
                             }
                         }
                 if A[i][j - 1] > 0:
@@ -56,17 +56,17 @@ def fill_edge():
             B[i + 1][j + 1] = A[i][j]
     print(B)
     def write_seg(i, j, last, type, facing, diff, axis):
-        now_pos = (i - 1) * basicSize + (1 + diff) * basicSize // 4
+        now_pos = (i - 1) * basic_size + (1 + diff) * basic_size // 4
         edges.append(
         {
             "type" : type,
             "facing": facing,
             "hitbox" :
             {
-                "xy"[axis] : (last - 1) * basicSize,
+                "xy"[axis] : (last - 1) * basic_size,
                 "yx"[axis] : now_pos,
-                ["width", "height"][axis] : (j - last) * basicSize,
-                ["height", "width"][axis] : basicSize // 2,
+                ["width", "height"][axis] : (j - last) * basic_size,
+                ["height", "width"][axis] : basic_size // 2,
             }
         })
     def make_edge_y(diff):

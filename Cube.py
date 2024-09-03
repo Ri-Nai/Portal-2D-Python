@@ -1,13 +1,13 @@
 from entity import Entity
 from components import Vector, Hitbox
-from Managers.map_manager import basicSize, halfSize
+from Managers.map_manager import basic_size, half_size
 
 
 class Cube(Entity):
     # TODO:
-    cubeSize = 0.8 * basicSize
+    cube_size = 0.8 * basic_size
 
-    def __init__(self, x, y, size=Vector(cubeSize, cubeSize)):
+    def __init__(self, x, y, size=Vector(cube_size, cube_size)):
         super(x, y, size)
         self.canPick = False
         self.isPicked = False
@@ -15,10 +15,10 @@ class Cube(Entity):
     def hitRange(self):
         # TODO:
         return Hitbox(
-            self.hitbox.x - halfSize,
-            self.hitbox.y - halfSize,
-            self.hitbox.width + halfSize,
-            self.hitbox.height + halfSize,
+            self.hitbox.x - half_size,
+            self.hitbox.y - half_size,
+            self.hitbox.width + half_size,
+            self.hitbox.height + half_size,
         )
 
     def update(self, deltaTime):
@@ -38,7 +38,7 @@ class Cube(Entity):
             self.hitbox.x = player.hitbox.x
             self.hitbox.y = player.hitbox.y
             offset = Vector(
-                -0.5 * self.cubeSize + (player.facing + 1) * (Player.PlayerSize.X) / 2,
+                -0.5 * self.cube_size + (player.facing + 1) * (Player.PlayerSize.X) / 2,
                 0.2 * Player.PlayerSize.y,
             )
             # TODO:
