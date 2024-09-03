@@ -25,7 +25,7 @@ class Player(Entity):
             return move
         def controllerY():
             from game import Game
-            return Game.get_instance().keyboard_manager.firstDown("Space", self.jumping.setJumpBuffer())
+            return Game.get_instance().keyboard_manager.firstDown("Space", self.jumping.setJumpBuffer)
         self.updateXY(controllerX(), controllerY())
     def draw(self):
         from game import Game

@@ -61,7 +61,7 @@ class Entity:
     def __init__(self, hitbox : Hitbox) -> None:
         self.hitbox = hitbox.copy()
         self.velocity = Vector(0, 0)
-        self.jumping = Jumping(4, 9, 0.5, 30, 30)
+        self.jumping = Jumping(4, 9, 0.5, 10, 15)
         self.MaxSpeed = 6
         self.isflying = False
     def isOnGround(self):
