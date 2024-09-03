@@ -1,5 +1,5 @@
 import pygame
-from map import Tile
+from Managers.map_manager import Tile
 
 class GameEvent(Tile):
     def __init__(self, id, type, x, y, width, height, affect):
@@ -12,7 +12,7 @@ class GameEvent(Tile):
         #TODO:
         entities = kong #待定
         isActivate = False
-        
+
         for entity in entities:
             if self.hitbox.hit(entity.hitbox):
                 if isActivate :return
@@ -48,5 +48,5 @@ class GameEvent(Tile):
     def onDeactivate(self):
         pass
 
-    def draw(self):   
+    def draw(self):
         pass

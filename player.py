@@ -7,15 +7,16 @@ class Player(Entity):
     velocity: Vector
     jumping: jumping
     """
-    
+
     def __init__(self, hitbox : Hitbox) -> None:
         super().__init__(hitbox)
         self.facing = 1
         self.isSpaceHeld = False
     def update(self):
         def controllerX():
-            moveLeft = pygame.key.get_pressed()[pygame.K_a]
-            moveRight = pygame.key.get_pressed()[pygame.K_d]
+            from game import Game
+            moveLeft = Game.get_instance().keyboard_manager.isKeysDown(["A", "Left"])
+            moveRight = Game.get_instance().keyboard_manager.isKeysDown(["D", "Right"])
             move = 0
             if moveLeft:
                 self.facing = move = -1
@@ -23,13 +24,8 @@ class Player(Entity):
                 self.facing = move = 1
             return move
         def controllerY():
-            if pygame.key.get_pressed()[pygame.K_SPACE]:
-                if not self.isSpaceHeld:
-                    self.jumping.setJumpBuffer()
-                self.isSpaceHeld = True
-            else:
-                self.isSpaceHeld = False
-            return self.isSpaceHeld
+            from game import Game
+            return Game.get_instance().keyboard_manager.firstDown("Space", self.jumping.setJumpBuffer())
         self.updateXY(controllerX(), controllerY())
     def draw(self):
         from game import Game

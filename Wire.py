@@ -1,4 +1,4 @@
-from Event import GameEvent
+from event import GameEvent
 
 class Wire(GameEvent):
     def __init__(self, id, type, x, y, width, height, affect):

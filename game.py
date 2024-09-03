@@ -1,8 +1,9 @@
 # game.py
 import pygame
-import map
-from datamanager import DataManager
-from map import MapManager
+from Managers import DataManager
+from Managers import MapManager, basicSize
+from Managers import MouseManager
+from Managers import KeyboardManager
 from player import Player
 from components import Hitbox, Vector
 import os
@@ -16,11 +17,15 @@ class Game:
         self.screen = screen
         self.data_manager = DataManager()
         self.map_manager = MapManager()
-        self.map_manager.loadFromURL(os.path.join(os.path.dirname(__file__), "Test2.json"))
- 
-        self.player = Player(Hitbox(4 * map.basicSize, 4 * map.basicSize, 1.2 * map.basicSize, 1.8 * map.basicSize))
+        self.map_manager.loadFromURL(os.path.join(os.path.dirname(__file__), "assets/stages/maps", "Test2.json"))
+        self.mouse_manager = MouseManager(screen)
+        self.keyboard_manager = KeyboardManager()
+
+        self.player = Player(Hitbox(4 * basicSize, 4 * basicSize, 1.2 * basicSize, 1.8 * basicSize))
         self.computations = []
         self.renderings = []
+        self.computations.append(self.mouse_manager.update)
+        self.computations.append(self.keyboard_manager.update)
         self.computations.append(self.player.update)
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.player.draw)

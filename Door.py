@@ -1,5 +1,5 @@
 from Event import GameEvent
-from map import Tile
+from Managers.map_manager import Tile
 from components import Hitbox
 
 class Door(Tile):

@@ -1,6 +1,7 @@
 import pygame
 from pygame import Rect
 basicSize = 40
+halfSize = basicSize // 2
 class Tile(Rect):
     colors = ["red", "green", "blue"]
     def __init__(self, x, y, width, height, type):

@@ -16,6 +16,7 @@ class Jumping:
         self.isSpaceHeld = False
     def canJump(self, onGround):
         if (onGround):
+            # print(self.coyoteTimer)
             self.coyoteTimer = self.coyoteTime
             self.isJumping = False
             self.isFalling = False
@@ -26,8 +27,9 @@ class Jumping:
             if not self.isJumping:
                 self.isFalling = True
             self.coyoteTimer = max(self.coyoteTimer - 1, 0)
-        if not self.isJumping and self.jumpBuffer > 0 and self.coyoteTimer > 0:
-            self.startJump()
+            print(pygame.time.get_ticks() / 1000, self.isJumping, self.coyoteTimer, self.jumpBuffer)
+            if not self.isJumping and self.jumpBuffer > 0 and self.coyoteTimer > 0:
+                self.startJump()
     def startJump(self):
         self.isJumping = True
         self.isFalling = False
@@ -48,6 +50,7 @@ class Jumping:
         elif self.isFalling:
             self.jumpVelocity -= self.gravity
         self.jumpBuffer = max(self.jumpBuffer - 1, 0)
+        print(self.jumpBuffer)
     def setJumpBuffer(self):
         self.jumpBuffer = self.jumpBufferTime
     def updateFalling(self):
@@ -58,7 +61,7 @@ class Entity:
     def __init__(self, hitbox : Hitbox) -> None:
         self.hitbox = hitbox.copy()
         self.velocity = Vector(0, 0)
-        self.jumping = Jumping(4, 9, 0.5, 10, 15)
+        self.jumping = Jumping(4, 9, 0.5, 30, 30)
         self.MaxSpeed = 6
         self.isflying = False
     def isOnGround(self):
@@ -94,7 +97,7 @@ class Entity:
                 break
         return flag
     def updateJumping(self, isSpaceHeld):
-        
+
         self.jumping.canJump(self.isOnGround())
         self.jumping.updateJump(isSpaceHeld)
     def updateX(self, move):
@@ -114,7 +117,6 @@ class Entity:
                     nextVelocityX = decelerate(self.velocity.x, (0.16) * (2));
                 else:
                     nextVelocityX = decelerate(self.velocity.x, (0.01) * (2));
-        
             elif move * self.velocity.x > 0:
                 if onGround:
                     nextVelocityX = decelerate(self.velocity.x, 0.3);
