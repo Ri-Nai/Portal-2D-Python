@@ -6,10 +6,6 @@ class Wire(GameEvent):
         super().__init__(id, type, hitbox, affect)
         self.predir = predir
         self.nxtdir = nxtdir
-
-    def update(self):
-        pass
-
     def on_activate(self):
         pass
 

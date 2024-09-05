@@ -14,4 +14,6 @@ class ViewSwitch(GameEvent):
         player = Game.get_instance().view.player
         if self.colliderect(player.hitbox):
             self.activate()
+            return False
+        return True
 

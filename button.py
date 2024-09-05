@@ -16,7 +16,6 @@ class Button(Tile):
         self.hitbox.y = self.y + self.height / 2
         self.hitbox.height = self.height / 2
         from game import Game
-        print(Game.get_instance().map_manager.super_edges[-2], Game.get_instance().map_manager.super_edges[-1])
 
     def on_deactivate(self):
         self.activated = False
@@ -53,6 +52,7 @@ class ButtonEvent(GameEvent):
                 break
         if not is_activate:
             self.deactivate()
+        return True
     def draw(self):
         self.block.draw()
     def on_activate(self):

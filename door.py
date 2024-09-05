@@ -60,6 +60,7 @@ class DoorEvent(GameEvent):
 
     def update(self):
         self.block.update()
+        return True
     def draw(self):
         self.block.draw()
     def on_activate(self):

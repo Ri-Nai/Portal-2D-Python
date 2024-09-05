@@ -223,7 +223,6 @@ class Entity:
     def update(self):
         self.update(0, 0)
     def check_out_of_map(self):
-        # from game import Game
-        # if self.hitbox.colliderect(Hitbox(0, 0, Game.get_instance().screen.get_width(), Game.get_instance().screen.get_height())):
-        #     Game.get_instance().restart()
-        pass
+        from game import Game
+        if self.hitbox.colliderect(Hitbox(0, 0, Game.get_instance().screen.get_width(), Game.get_instance().screen.get_height())):
+            Game.get_instance().restart()
