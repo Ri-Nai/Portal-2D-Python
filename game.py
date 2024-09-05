@@ -37,6 +37,7 @@ class Game:
         self.is_paused = False
 
     def load(self, url = "Room10.json"): 
+        self.current_url = url
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
         )
@@ -119,3 +120,7 @@ class Game:
     def resume(self):
         self.toggle_pause(False)
         self.mouse_manager.capture()
+    
+    def restart(self):
+        self.load(self.current_url)
+        self.resume()

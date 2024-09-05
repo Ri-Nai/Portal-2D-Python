@@ -18,6 +18,7 @@ class PauseScreen:
         from game import Game
         self.button_list([
             { "text": "Resume", "callback": lambda: Game.get_instance().resume() },
+            { "text": "Restart", "callback": lambda: Game.get_instance().restart() },
             { "text": "Quit", "callback": lambda: pygame.event.post(pygame.event.Event(pygame.QUIT)) }
         ], pos)
 
