@@ -32,8 +32,8 @@ class GameEvent(Tile):
             self.on_activate()
 
         for id in self.affect:
-            # TODO:
-            event = kong  # 待定
+            from game import Game
+            event = Game.get_instance().map_manager.events.get_event(id)
             event.activate()
 
     def deactivate(self):
@@ -41,8 +41,8 @@ class GameEvent(Tile):
             self.on_deactivate()
         self.activated = False
         for id in self.affect:
-            # TODO:
-            event = kong  # 待定
+            from game import Game
+            event = Game.get_instance().map_manager.events.get_event(id)
             event.deactivate()
 
     def on_activate(self):
