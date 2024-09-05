@@ -3,11 +3,14 @@ from Managers.map_manager import Tile
 
 
 class GameEvent(Tile):
-    def __init__(self, id, type, hitbox, affect = []):
+    def __init__(self, id, type, hitbox, affect = None):
         super().__init__(hitbox, type)
         self.id = id
         self.activated = False
-        self.affect = affect
+        if affect is None:
+            affect = []
+        else:
+            self.affect = affect
 
     def update(self):
         from game import Game
