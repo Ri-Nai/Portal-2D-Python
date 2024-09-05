@@ -5,6 +5,7 @@ from Managers import MapManager, Edge, basic_size, offset_size
 from Managers import MouseManager
 from Managers import KeyboardManager
 from Managers import TextureManager
+from Managers import SoundManager
 from pause_screen import PauseScreen
 from player import Player
 from components import Hitbox, Vector
@@ -30,6 +31,9 @@ class Game:
         self.map_manager = MapManager()
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
+        self.sound_manager = SoundManager(
+            os.path.join(os.path.dirname(__file__), "assets/audios/Sounds.json")
+        )
 
         self.pause_screen = PauseScreen()
 
@@ -51,6 +55,7 @@ class Game:
         self.computations.append(self.mouse_manager.update)
         self.computations.append(self.keyboard_manager.update)
         self.computations.append(self.view.update)
+        self.computations.append(self.sound_manager.update)
 
         self.renderings.append(self.view.draw)
         self.renderings.append(self.mouse_manager.draw)
@@ -115,11 +120,16 @@ class Game:
         # print(self.portals[0].type)
 
     def toggle_pause(self, status: bool):
-        self.is_paused = status
+        self.pause() if status else self.resume()
+
+    def pause(self):
+        self.is_paused = True
+        self.sound_manager.play_sound("pause")
         
     def resume(self):
-        self.toggle_pause(False)
+        self.is_paused = False
         self.mouse_manager.capture()
+        self.sound_manager.play_sound("resume")
     
     def restart(self):
         self.load(self.current_url)
