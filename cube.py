@@ -28,22 +28,15 @@ class Cube(Entity):
             self.canPick = False
 
         if self.canPick:
-            self.hitbox.x = player.hitbox.x
-            self.hitbox.y = player.hitbox.y
-            
-            offset = Vector(player.facing * self.cube_size + (player.facing + 1) * (player_size.x - self.cube_size) / 2, 0.32 * player_size.y)
-            self.hitbox += offset
-            self.velocity.x = player.velocity.x
-            self.velocity.y = player.velocity.y
-            self.jumping.jumpVelocity = player.jumping.jumpVelocity
+            if Game.get_instance().keyboard_manager.isKeyDown("E"):
+                self.isPicked = not self.isPicked
+            else:
+                return
 
         if self.isPicked:
             self.hitbox.x = player.hitbox.x
             self.hitbox.y = player.hitbox.y
-            offset = Vector(
-                -0.5 * self.cube_size + (player.facing + 1) * (player_size.x) / 2,
-                0.2 * player_size.y,
-            )
+            offset = Vector(player.facing * self.cube_size + (player.facing + 1) * (player_size.x - self.cube_size) / 2, 0.32 * player_size.y)
             self.hitbox += offset
             self.velocity.x = player.velocity.x
             self.velocity.y = player.velocity.y
