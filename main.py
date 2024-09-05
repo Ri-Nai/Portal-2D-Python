@@ -14,7 +14,6 @@ def main():
     game = Game.get_instance(screen)
     clock = pygame.time.Clock()
 
-    paused = False
     running = True
     while running:
         for event in pygame.event.get():
@@ -23,11 +22,10 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 # print("Key pressed")
                 if event.key == pygame.K_ESCAPE:
-                    paused = not paused  # 切换暂停状态
-                    game.toggle_pause(paused)
-                    game.mouse_manager.uncapture() if paused else game.mouse_manager.capture()
+                    game.toggle_pause(not game.is_paused)
+                    game.mouse_manager.uncapture() if game.is_paused else game.mouse_manager.capture()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if not paused:
+                if not game.is_paused:
                     game.mouse_manager.capture()
 
         # 运行游戏循环
