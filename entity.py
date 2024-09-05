@@ -69,6 +69,7 @@ class Entity:
         self.is_flying = False
         self.in_portal = False
         self.is_player = False
+        self.is_bullet = False
 
     def isOnGround(self):
         down_hitbox = self.hitbox.copy() + Vector(0, 1)
@@ -112,7 +113,6 @@ class Entity:
                     self.facing = portals[i ^ 1].facing - 2
                 self.hitbox.set_position(new_position)
                 return 1 << (i ^ 1)
-        # self.hitbox.move_ip(-delta[0], -delta[1])
         self.hitbox -= delta
         return 0
 

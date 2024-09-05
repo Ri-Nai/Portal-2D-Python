@@ -36,7 +36,7 @@ class Game:
         self.load()
         self.is_paused = False
 
-    def load(self, url = "Room13.json"): 
+    def load(self, url = "Room14.json"): 
         self.current_url = url
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)

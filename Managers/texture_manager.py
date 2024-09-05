@@ -15,6 +15,6 @@ class TextureManager:
                 for key, path in textures.items():
                     self.textures[category][key] = pygame.image.load(path)
 
-    def get_texture(self, category, key):
+    def get_texture(self, category, key = "0"):
         """获取图像资源"""
         return self.textures.get(str(category), {}).get(str(key))

@@ -28,7 +28,7 @@ class Hitbox(Rect):
     def get_position(self):
         return Vector(self.x, self.y)
     def get_center(self):
-        return Vector(self.centerx, self.centery)
+        return Vector(self.x + self.width / 2, self.y + self.height / 2)
     def set_position(self, position : Vector):
         self.x = position.x
         self.y = position.y

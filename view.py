@@ -2,7 +2,7 @@ from components import *
 
 
 class View:
-    def __init__(self, view_data) -> None:
+    def __init__(self, view_data : dict) -> None:
         from game import Game
 
         self.map_manager = Game.get_instance().map_manager
@@ -38,6 +38,9 @@ class View:
             )]
         self.portal_gun = PortalGun()
         self.entities = [self.player]
+        from GLaDOS import GLaDOS
+        self.GLaDOS = GLaDOS(view_data.get("GLaDOS", False))
+        print(self.GLaDOS.stillAlive)
         if self.cube:
             self.entities.append(self.cube)
         self.events = self.map_manager.events
@@ -69,12 +72,15 @@ class View:
             self.computations.append(entity.update)
         self.computations.append(self.portal_gun.update)
         self.computations.append(make_portal)
+        self.computations.append(self.GLaDOS.update)
         self.computations.append(self.events.update)
 
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.events.draw)
         for entity in self.entities:
             self.renderings.append(entity.draw)
+        
+        self.renderings.append(self.GLaDOS.draw)
         self.renderings.append(self.portal_gun.draw)
 
     def update(self):

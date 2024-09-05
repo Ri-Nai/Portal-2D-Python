@@ -36,20 +36,7 @@ class PortalGun:
     def draw(self):
         if not self.isShot:
             return
-
-        # angle = atan(self.direction.y / self.direction.x) / pi * 180
-        # (self.direction.x < 0) ? (angle > 0) ? angle -= 180 : angle += 180 : angle
         from game import Game
-        """
-        Game.get_instance().draw_rect(
-            self.COLOR[ self.flyingType ],
-            Hitbox(
-            self.position.x,
-            self.position.y,
-            20,
-            20)
-        )
-        """
         angle = -self.direction.get_angle()
         Game.get_instance().draw_image(
             Game.get_instance().texture_manager.get_texture("portalBullets", self.COLOR[ self.flyingType ]),
@@ -57,14 +44,6 @@ class PortalGun:
             Hitbox(10, 10, 20, 20),
             angle
         )
-        """
-        TODO:
-
-        texture = window.$game.textureManager.getTexture("portalBullets", self.COLOR[ self.flyingType ])
-        rotated = window.$game.textureManager.rotateTexture(texture, angle)
-
-        window.$game.ctx.drawImage(rotated, 10, 10, 20, 20, self.position.x, self.position.y, 20, 20)
-        """
     def update(self):
         if not self.isShot:
             return
@@ -87,9 +66,7 @@ class PortalGun:
                     self.isShot = False
                     self.isHit = True
                     self.edge = edge
-                    # last_position = self.position.copy()
                     self.position = fix_position(self.position, edge)
-                    # print(last_position, self.position)
                     done = True
                     break
             if done:
