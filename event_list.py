@@ -11,7 +11,8 @@ class EventList:
 
     def update(self):
         for event in self.events.values():
-            event.update()
+            if not event.update():
+                break
 
     def get_event(self, id):
         # print(id, type(self.events.get(id)))
@@ -33,7 +34,6 @@ def create_event(id, event_data):
         )
         from game import Game
         import copy
-# 在追加到列表之前，做一个浅拷贝
         Game.get_instance().map_manager.super_edges.append(e.block.hitbox)
 
 

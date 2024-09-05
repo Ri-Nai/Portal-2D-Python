@@ -82,6 +82,7 @@ class Player(Entity):
             else:
                 self.animation.setStatus("stand", self.facing)
         self.animation.update()
+        self.check_out_of_map()
     def draw(self):
         from game import Game
         Game.get_instance().draw_rect("pink", self.hitbox)

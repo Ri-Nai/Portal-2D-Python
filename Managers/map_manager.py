@@ -113,7 +113,6 @@ class MapManager:
                 Edge(super_edge["hitbox"], super_edge["type"], super_edge["facing"])
             )
         self.events.init(data["events"])
-        # print(data["events"])
         self.prerender_map()
 
     def prerender_map(self):
@@ -124,10 +123,12 @@ class MapManager:
         self.prerendered_map_surface.fill((0, 0, 0))  # 用黑色填充背景
 
         # 遍历所有砖块并绘制到 Surface 上
-        for i, layer in enumerate(self.layers):
+        for i, layer in enumerate(self.layers[:-1]):
             layer.draw(typename[i], self.prerendered_map_surface)
         for block in self.blocks:
             block.draw("blocks", self.prerendered_map_surface)
+        self.layers[-1].draw(typename[-1], self.prerendered_map_surface)
+        
 
     def draw(self):
         from game import Game

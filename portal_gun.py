@@ -53,7 +53,7 @@ class PortalGun:
         angle = -self.direction.get_angle()
         Game.get_instance().draw_image(
             Game.get_instance().texture_manager.get_texture("portalBullets", self.COLOR[ self.flyingType ]),
-            Hitbox(self.position.x - 20, self.position.y - 20, 40, 40),
+            Hitbox(self.position.x, self.position.y, 20, 20),
             Hitbox(10, 10, 20, 20),
             angle
         )
