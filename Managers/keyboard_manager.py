@@ -13,6 +13,7 @@ class KeyboardManager:
             "Right": pygame.K_RIGHT,
             "A": pygame.K_a,
             "D": pygame.K_d,
+            "E": pygame.K_e,
         }
         self.status = {key: False for key in self.keymap}
         self.is_held = {key: False for key in self.keymap}
