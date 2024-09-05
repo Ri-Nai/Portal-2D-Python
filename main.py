@@ -11,6 +11,10 @@ def main():
     icon_image = pygame.image.load(os.path.join(os.path.dirname(__file__), "./assets/ico/RanaLogo.png"))
     pygame.display.set_icon(icon_image)
     # 创建 Game 实例
+    pygame.mixer.init()
+    pygame.mixer.music.load("./assets/audios/bgms/阿保剛 - Christina I.mp3")
+    pygame.mixer.music.play(-1)
+
     game = Game.get_instance(screen)
     clock = pygame.time.Clock()
 

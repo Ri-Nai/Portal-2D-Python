@@ -15,6 +15,8 @@ class Vector(Vector2):
         x = self.x * cos(angle) - self.y * sin(angle)
         y = self.x * sin(angle) + self.y * cos(angle)
         return Vector(x, y)
+    def scale(self, scale):
+        return Vector(self.x * scale, self.y * scale)
 class Hitbox(Rect):
     def checkHits(self, hitboxes, operate = None) -> bool:
         for hitbox in hitboxes:

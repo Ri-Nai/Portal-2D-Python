@@ -82,6 +82,7 @@ class View:
         
         self.renderings.append(self.GLaDOS.draw)
         self.renderings.append(self.portal_gun.draw)
+        self.renderings.append(self.GLaDOS.draw_blood)
 
     def update(self):
         for computation in self.computations:

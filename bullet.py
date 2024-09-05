@@ -56,12 +56,12 @@ class Bullet(Entity):
     def draw(self):
         from game import Game
 
-        angle = -self.velocity.get_angle()
-        # Game.get_instance().draw_image(
-        #     Game.get_instance().texture_manager.get_texture(
-        #         "GLaDOSbullets", f"{self.type}-{self.style}"
-        #     ),
-        #     self.hitbox,
-        #     angle=angle,
-        # )
-        Game.get_instance().draw_rect("red", self.hitbox)
+        angle = -self.velocity.get_angle() - 90
+        Game.get_instance().draw_image(
+            Game.get_instance().texture_manager.get_texture(
+                "GLaDOSbullets", f"{self.type}-{self.style}"
+            ),
+            Hitbox(self.hitbox.get_position(), self.hitbox.get_size() * 2),
+            angle=angle,
+        )
+        # Game.get_instance().draw_rect("red", self.hitbox)
