@@ -24,9 +24,11 @@ def main():
                 # print("Key pressed")
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused  # 切换暂停状态
+                    game.toggle_pause(paused)
                     game.mouse_manager.uncapture() if paused else game.mouse_manager.capture()
-            elif event.type == pygame.MOUSEBUTTONDOWN and not paused:
-                game.mouse_manager.capture()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if not paused:
+                    game.mouse_manager.capture()
 
         # 运行游戏循环
         game.loop()
