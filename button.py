@@ -12,22 +12,28 @@ class Button(Tile):
 
     def on_activate(self):
         self.activated = True
-        self.hitbox = Hitbox(self.x, self.y + self.height / 2, self.width, self.height / 2)
+        # self.hitbox = Hitbox(self.x, self.y + self.height / 2, self.width, self.height / 2)
+        self.hitbox.y = self.y + self.height / 2
+        self.hitbox.height = self.height / 2
+        from game import Game
+        print(Game.get_instance().map_manager.super_edges[-2], Game.get_instance().map_manager.super_edges[-1])
 
     def on_deactivate(self):
         self.activated = False
-        self.hitbox = Hitbox(self.x, self.y, self.width, self.height)
+        self.hitbox.y = self.y
+        self.hitbox.height = self.height
 
     def draw(self):
-        from game import Game
-
+        from game import Game, offset_size
+        # print(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
         Game.get_instance().draw_image(
             Game.get_instance().texture_manager.get_texture(
                 "buttons", int(self.activated)
             ),
-            self.hitbox.to_rect(),
-            (8, 25, 64, 15),
+            Hitbox(self.x, self.y - offset_size, self.width, self.height),
+            Hitbox(10, 25, 60, 15)
         )
+        # Game.get_instance().draw_rect("red", self.hitbox)
 
 
 from event import GameEvent

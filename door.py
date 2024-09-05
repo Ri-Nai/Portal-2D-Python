@@ -21,14 +21,14 @@ class Door(Tile):
 
 class DoorEvent(GameEvent):
     def __init__(self, id, type, hitbox):
-        super().__init__(id, type, hitbox, None)
+        super().__init__(id, type, hitbox, [])
         self.block = Door(101, hitbox, self)
 
     def update(self):
         pass
 
     def on_activate(self):
-        self.block.on_activate(self)
+        self.block.on_activate()
 
     def on_deactivate(self):
-        self.block.on_deactivate(self)
+        self.block.on_deactivate()
