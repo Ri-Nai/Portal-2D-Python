@@ -2189,7 +2189,7 @@
     "events": {
         "event-area-31-12": {
             "type": 3,
-            "hibox": {
+            "hitbox": {
                 "x": 1240,
                 "y": 480,
                 "width": 40,
@@ -2200,7 +2200,7 @@
         },
         "event-area-29-13": {
             "type": 5,
-            "hibox": {
+            "hitbox": {
                 "x": 1160,
                 "y": 520,
                 "width": 40,

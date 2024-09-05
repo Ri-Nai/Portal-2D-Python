@@ -1,7 +1,7 @@
 # game.py
 import pygame
 from Managers import DataManager
-from Managers import MapManager, Edge, basic_size
+from Managers import MapManager, Edge, basic_size, offset_size
 from Managers import MouseManager
 from Managers import KeyboardManager
 from Managers import TextureManager
