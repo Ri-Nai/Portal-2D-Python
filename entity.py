@@ -82,12 +82,6 @@ class Entity:
                 self.is_flying = 0
                 return True
         return False
-    """
-    TODO:
-    def checkOutOfMap(self):
-        if (self.hitbox.outofMap())
-            window.$game.restart()
-    """
     def rotateVelocity(self, infacing : int, outfacing : int):
         from math import pi
         angle = pi / 2 * (infacing - outfacing + 4 & 3)
@@ -228,3 +222,7 @@ class Entity:
             self.jumping.setFalling()
     def update(self):
         self.update(0, 0)
+    def check_out_of_map(self):
+        from game import Game
+        if self.hitbox.colliderect(Hitbox(0, 0, Game.get_instance().map_manager.width, Game.get_instance().map_manager.height)):
+            Game.get_instance().restart()

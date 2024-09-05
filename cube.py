@@ -4,7 +4,6 @@ from Managers.map_manager import basic_size, half_size
 from player import player_size
 
 class Cube(Entity):
-    # TODO:
     cube_size = 0.8 * basic_size
 
     def __init__(self, x, y, size=Vector(cube_size, cube_size)):
@@ -13,7 +12,6 @@ class Cube(Entity):
         self.isPicked = False
 
     def hitRange(self):
-        # TODO:
         return Hitbox(
             self.hitbox.x - half_size,
             self.hitbox.y - half_size,
@@ -21,8 +19,7 @@ class Cube(Entity):
             self.hitbox.height + basic_size
         )
 
-    def update(self, deltaTime):
-        # TODO:
+    def update(self):
         from game import Game
         player = Game.get_instance().view.player
         if player.hitbox.colliderect(self.hitRange(self)):
@@ -31,14 +28,14 @@ class Cube(Entity):
             self.canPick = False
 
         if self.canPick:
-            self.hitbox.position.x = player.hitbox.position.x;
-            self.hitbox.position.y = player.hitbox.position.y;
+            self.hitbox.x = player.hitbox.x
+            self.hitbox.y = player.hitbox.y
             
-            offset = Vector(player.facing * Cube.cubeSize + (player.facing + 1) * (Player.PlayerSize.x - Cube.cubeSize) / 2, 0.32 * Player.PlayerSize.y);
-            self.hitbox.position.addEqual(offset);
-            self.velocity.x = player.velocity.x;
-            self.velocity.y = player.velocity.y;
-            self.jumping.jumpVelocity = player.jumping.jumpVelocity;
+            offset = Vector(player.facing * self.cube_size + (player.facing + 1) * (player_size.x - self.cube_size) / 2, 0.32 * player_size.y)
+            self.hitbox += offset
+            self.velocity.x = player.velocity.x
+            self.velocity.y = player.velocity.y
+            self.jumping.jumpVelocity = player.jumping.jumpVelocity
 
         if self.isPicked:
             self.hitbox.x = player.hitbox.x
@@ -56,7 +53,8 @@ class Cube(Entity):
             self.updateXY(0, 0)
 
         # this.hitbox.position = this.hitbox.position.round()
-        self.checkOutOfMap()
+        self.check_out_of_map()
 
     def draw(self):
-        pass
+        from game import Game
+        Game.get_instance().draw_rect((255, 0, 0), self.hitbox)
