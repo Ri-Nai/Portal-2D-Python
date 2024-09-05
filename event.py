@@ -1,51 +1,54 @@
 import pygame
 from Managers.map_manager import Tile
 
+
 class GameEvent(Tile):
-    def __init__(self, id, type, x, y, width, height, affect):
-        super().__init__(x, y, width, height, type)
+    def __init__(self, id, type, hitbox, affect):
+        super().__init__(hitbox, type)
         self.id = id
         self.activated = False
         self.affect = affect
 
     def update(self):
-        #TODO:
-        entities = kong #待定
-        isActivate = False
+        from game import Game
+
+        entities = Game.get_instance().view.entities
+        is_activate = False
 
         for entity in entities:
-            if self.hitbox.hit(entity.hitbox):
-                if isActivate :return
-            self.activate(self)
-            isActivate = True
+            if self.colliderect(entity.hitbox):
+                if is_activate:
+                    return
+                self.activate()
+                is_activate = True
 
-        self.activated = isActivate
-        if not self.activated :
-            self.deactivate(self)
+        self.activated = is_activate
+        if not is_activate:
+            self.deactivate()
 
     def activate(self):
         if not self.activated:
             self.activated = True
-            self.onActivate(self)
+            self.on_activate()
 
         for id in self.affect:
-            #TODO:
-            event= kong #待定
-            event.activate(self)
+            # TODO:
+            event = kong  # 待定
+            event.activate()
 
     def deactivate(self):
         if self.activated:
-            self.onDeactivate(self)
+            self.on_deactivate()
         self.activated = False
         for id in self.affect:
-            #TODO:
-            event = kong #待定
-            event.deactivate(self)
+            # TODO:
+            event = kong  # 待定
+            event.deactivate()
 
-    def onActivate(self):
+    def on_activate(self):
         pass
 
-    def onDeactivate(self):
+    def on_deactivate(self):
         pass
 
     def draw(self):

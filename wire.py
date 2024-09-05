@@ -7,10 +7,10 @@ class Wire(GameEvent):
     def update(self):
         pass
 
-    def onActivate(self):
+    def on_activate(self):
         pass
 
-    def onDeactivate(self):
+    def on_deactivate(self):
         pass
 
     def draw(self):

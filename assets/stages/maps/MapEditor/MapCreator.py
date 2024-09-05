@@ -129,6 +129,8 @@ def fill_edge():
 fill_block()
 fill_edge()
 
+
+
 answer = {"layers" : layers, "blocks" : blocks, "edges" : edges, "super_edges" : super_edges}
 s = json.dumps(answer, indent = 4)
 with open(os.path.join(father, name + ".json"), "w") as f:
