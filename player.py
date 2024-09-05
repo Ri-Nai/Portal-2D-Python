@@ -50,6 +50,7 @@ class Player(Entity):
         self.facing = 1
         self.isSpaceHeld = False
         self.animation = Animation()
+        self.is_player = True
     def update(self):
         move = 0
         def controllerX():

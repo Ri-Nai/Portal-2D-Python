@@ -68,6 +68,7 @@ class Entity:
         self.portalBuffer = 3
         self.is_flying = False
         self.in_portal = False
+        self.is_player = False
 
     def isOnGround(self):
         down_hitbox = self.hitbox.copy() + Vector(0, 1)
@@ -191,9 +192,9 @@ class Entity:
         else:
             if move == 0:
                 if onGround:
-                    nextVelocityX = decelerate(self.velocity.x, (0.16) * (2))
+                    nextVelocityX = decelerate(self.velocity.x, (0.16) * (1 + self.is_player))
                 else:
-                    nextVelocityX = decelerate(self.velocity.x, (0.01) * (2))
+                    nextVelocityX = decelerate(self.velocity.x, (0.01) * (1 + self.is_player))
             elif move * self.velocity.x > 0:
                 if onGround:
                     nextVelocityX = decelerate(self.velocity.x, 0.3)
@@ -205,7 +206,7 @@ class Entity:
                 else:
                     nextVelocityX = decelerate(self.velocity.x, 0.1)
         return nextVelocityX
-    def updateXY(self, controllerX, controllerY):
+    def updateXY(self, controllerX : int, controllerY : int):
         self.updateJumping(controllerY)
         self.is_flying = max(0, self.is_flying - 1)
         self.in_portal = max(0, self.in_portal - 1)
