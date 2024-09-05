@@ -1,7 +1,4 @@
 import pygame
-from typing import Callable, TypedDict
-
-IButton = TypedDict("IButton", {"text": str, "callback": Callable[[], None]})
 
 class PauseScreen:
     def __init__(self):
@@ -28,13 +25,13 @@ class PauseScreen:
             { "text": "Resume", "callback": lambda: Game.get_instance().resume() },
         ], pos)
 
-    def button(self, text, position: pygame.Rect, callback: Callable[[], None]):
+    def button(self, text, position: pygame.Rect, callback):
         font = pygame.font.Font(None, 36)
         text = font.render(text, True, (0, 0, 0))
         self.pause_screen.blit(text, position)
         self.on_click(position, callback)
 
-    def button_list(self, buttons: list[IButton], position: pygame.Rect):
+    def button_list(self, buttons, position: pygame.Rect):
         GAP = 10
         PADDING = 20
         X = position.x + PADDING

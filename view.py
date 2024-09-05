@@ -9,7 +9,7 @@ class View:
         from player import Player
         from game import basic_size
         self.player = Player(
-            Hitbox(4 * basic_size, 4 * basic_size, 1.2 * basic_size, 1.8 * basic_size)
+            Hitbox(7 * basic_size, 7 * basic_size, 1.2 * basic_size, 1.8 * basic_size)
         )
         from portal import Portal, is_valid_position, fix_position
         from portal_gun import PortalGun
@@ -17,7 +17,8 @@ class View:
         self.portals = [Portal(), Portal()]
         self.portal_gun = PortalGun()
         self.entities = [self.player]
-
+        self.events = self.map_manager.events
+    
         self.computations = []
         self.renderings = []
         self.computations.append(self.player.update)
@@ -44,9 +45,12 @@ class View:
                     )
 
         self.computations.append(make_portal)
+        self.computations.append(self.events.update)
+        
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.player.draw)
         self.renderings.append(self.portal_gun.draw)
+
 
     def update(self):
         for computation in self.computations:

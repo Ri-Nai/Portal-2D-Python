@@ -212,7 +212,7 @@ def get_events():
         type = int(type)
         item = {
             "type": type,
-            "hibox": {
+            "hitbox": {
                 "x": rect[f][1] * basic_size,
                 "y": rect[f][0] * basic_size,
                 "width": (rect[f][3] - rect[f][1] + 1) * basic_size,

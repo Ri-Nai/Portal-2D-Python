@@ -21,7 +21,6 @@ class GameEvent(Tile):
                     return
                 self.activate()
                 is_activate = True
-
         self.activated = is_activate
         if not is_activate:
             self.deactivate()

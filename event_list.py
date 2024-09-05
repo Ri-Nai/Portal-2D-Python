@@ -8,9 +8,9 @@ class EventList:
         for k, v in events.items():
             self.events[k] = create_event(k, v)
 
-    def update(self, t):
+    def update(self):
         for event in self.events.values():
-            event.update(t)
+            event.update()
 
     def get_event(self, id):
         return self.events.get(id)

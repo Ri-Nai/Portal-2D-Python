@@ -1,7 +1,7 @@
 # game.py
 import pygame
 from Managers import DataManager
-from Managers import MapManager, Edge, basic_size
+from Managers import MapManager, Edge, basic_size, offset_size
 from Managers import MouseManager
 from Managers import KeyboardManager
 from Managers import TextureManager
@@ -36,7 +36,7 @@ class Game:
         self.load()
         self.is_paused = False
 
-    def load(self, url = "Test2.json"): 
+    def load(self, url = "Room1.json"): 
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
         )
