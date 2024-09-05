@@ -1,6 +1,11 @@
 import pygame
 from components import Hitbox, Vector
 from entity import Entity
+from game import basic_size
+
+player_size = Vector(1.2 * basic_size, 1.8 * basic_size)
+player_offset = Vector(0.7 * basic_size, 0.4 * basic_size)
+
 class Animation:
     Framerate = {
         "run": 6,
@@ -77,9 +82,8 @@ class Player(Entity):
                 self.animation.setStatus("stand", self.facing)
         self.animation.update()
     def draw(self):
-        from game import Game, basic_size
+        from game import Game
         Game.get_instance().draw_rect("pink", self.hitbox)
-        player_offset = Vector(0.7 * basic_size, 0.4 * basic_size)
         Game.get_instance().draw_image(
             self.animation.getFrame(),
             Hitbox(
