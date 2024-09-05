@@ -53,4 +53,8 @@ class Cube(Entity):
     def draw(self):
         from game import Game
 
-        Game.get_instance().draw_rect((255, 0, 0), self.hitbox)
+        # Game.get_instance().draw_rect((255, 0, 0), self.hitbox)
+        Game.get_instance().draw_image(
+            Game.get_instance().texture_manager.get_texture("cubes", int(not self.isPicked and self.canPick)),
+            self.hitbox,
+        )
