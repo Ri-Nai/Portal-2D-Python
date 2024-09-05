@@ -94,7 +94,7 @@ class Entity:
         self.jumping.jumpVelocity = -self.velocity.y
     def checkPortal(self, delta : Vector):
         from game import Game
-        portals = Game.get_instance().portals
+        portals = Game.get_instance().view.portals
         if portals[0].type == -1 or portals[1].type == -1:
             return False
         self.hitbox += delta
