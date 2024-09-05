@@ -15,20 +15,20 @@ class PauseScreen:
         box_height = 540
         box_width = 240
         pos = pygame.Rect((1280 - box_width) // 2, (720 - box_height) // 2 ,box_width, box_height)
-        pygame.draw.rect(
-            self.pause_screen,
-            (255, 255, 255),
-            pos
-        )
         from game import Game
         self.button_list([
             { "text": "Resume", "callback": lambda: Game.get_instance().resume() },
+            { "text": "Quit", "callback": lambda: pygame.event.post(pygame.event.Event(pygame.QUIT)) }
         ], pos)
 
     def button(self, text, position: pygame.Rect, callback):
-        font = pygame.font.Font(None, 36)
+        font = pygame.font.Font(None, 32)
         text = font.render(text, True, (0, 0, 0))
-        self.pause_screen.blit(text, position)
+        pygame.draw.rect(self.pause_screen, (255, 255, 255), position)
+
+        text_position = position.move(16, 8)
+
+        self.pause_screen.blit(text, text_position)
         self.on_click(position, callback)
 
     def button_list(self, buttons, position: pygame.Rect):
