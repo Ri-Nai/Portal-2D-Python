@@ -48,7 +48,7 @@ class Cube(Entity):
             self.updateXY(0, 0)
 
         # this.hitbox.position = this.hitbox.position.round()
-        # self.check_out_of_map()
+        self.check_out_of_map()
 
     def draw(self):
         from game import Game
