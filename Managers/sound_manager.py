@@ -37,12 +37,12 @@ class SoundManager:
             if not channel.get_busy():
                 channel.play(sound)
                 self.sound_status[ kind ][ id ] = True
-                self.channel_status[num] = f'{kind}-{id}'
+                self.channel_status[num] = f'{kind}@{id}'
                 return
         
         channel_id = len(self.channels)
         channel = pygame.mixer.Channel(channel_id)
-        self.channel_status[channel_id] = f'{kind}-{id}'
+        self.channel_status[channel_id] = f'{kind}@{id}'
         channel.play(sound)
         self.channels.append(channel)
 
@@ -53,7 +53,7 @@ class SoundManager:
                 if self.channel_status[num] != "":
                     prev = self.channel_status[num]
                     if prev != "":
-                        kind, id = prev.split("-")
+                        kind, id = prev.split("@")
                         self.sound_status[ kind ][ id ] = False
                         print(f"Channel {num} stopped playing {prev}")
                     self.channel_status[num] = ""

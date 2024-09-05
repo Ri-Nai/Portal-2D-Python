@@ -25,6 +25,8 @@ class PortalGun:
             return
         self.buffer -= 1
         if self.buffer <= 0 and self.isShot == False:
+            from game import Game
+            Game.get_instance().sound_manager.play_sound("portal-shooting", str(type))
             self.buffer = self.INTERVAL
             self.position = Vector(player.x, player.y)
             self.isShot = True

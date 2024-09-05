@@ -42,6 +42,9 @@ class Jumping:
     def updateJump(self, isSpaceHeld : bool):
         if self.isJumping:
             if not self.isFalling and isSpaceHeld and self.chargeTime < self.maxJump:
+                if self.jumpVelocity < 1e-5:
+                    from game import Game
+                    Game.get_instance().sound_manager.play_sound("jump")
                 self.chargeTime += 1
                 self.jumpVelocity = min(self.baseJump + (self.chargeTime / self.maxJump) * (self.maxJump - self.baseJump), self.maxJump)
             else:
@@ -111,6 +114,8 @@ class Entity:
                     self.is_flying = self.flyingBuffer
                     self.facing = portals[i ^ 1].facing - 2
                 self.hitbox.set_position(new_position)
+                from game import Game
+                Game.get_instance().sound_manager.play_sound("portal-teleporting")
                 return 1 << (i ^ 1)
         # self.hitbox.move_ip(-delta[0], -delta[1])
         self.hitbox -= delta
@@ -178,6 +183,9 @@ class Entity:
         def decelerate(now, deceleration):
             return sqrt(max(now * now - deceleration * now * now, 0)) * sign(now)
         onGround = self.isOnGround()
+        if self.is_player and onGround and move:
+            from game import Game
+            Game.get_instance().sound_manager.play_sound("walk")
         if not self.is_flying and abs(self.velocity.x) <= self.MaxSpeed:
             if move == 0:
                 nextVelocityX = self.velocity.x * exp(-0.5)
@@ -216,6 +224,9 @@ class Entity:
             self.velocity.x = 0
             self.is_flying = 0
         if side & 2:
+            if self.is_player and self.velocity.y > 0:
+                from game import Game
+                Game.get_instance().sound_manager.play_sound("land", '0')
             self.velocity.y = 0
         if self.velocity.y == 0:
             self.jumping.jumpVelocity = 0
