@@ -36,11 +36,14 @@ class Game:
         self.load()
         self.is_paused = False
 
-    def load(self, url = "Room1.json"): 
+    def load(self, url = "Room10.json"): 
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
         )
-        self.view = View()
+        view_data = self.data_manager.loadJSON(
+            os.path.join(os.path.dirname(__file__), "assets/stages/view_data", url)
+        )
+        self.view = View(view_data)
         self.computations = []
         self.renderings = []
         
@@ -62,25 +65,26 @@ class Game:
         # self.screen.fill(color, dest_rect)
         pygame.draw.rect(self.screen, color, dest_rect)
 
-
     def draw_image(self, texture, dest_rect, src_rect=None, angle=0):
-        """绘制图像"""
+        """绘制图像，从 texture 的 src_rect 区域裁剪并绘制到 dest_rect"""
         if not texture:
             print("Texture not found")
             return
-        # 如果 src_rect 为 None，则绘制整个图像
+        
+        # 如果 src_rect 为 None，则使用整个图像
         if src_rect is None:
             src_rect = pygame.Rect(0, 0, texture.get_width(), texture.get_height())
-
+        
+        # 从源图像裁剪出 src_rect 区域
+        cropped_texture = texture.subsurface(src_rect)
+        
         # 缩放图像
         resized_texture = pygame.transform.smoothscale(
-            texture, (dest_rect.width, dest_rect.height)
+            cropped_texture, (dest_rect.width, dest_rect.height)
         )
-
+        
         # 如果需要旋转
         if angle != 0:
-            # 计算旋转前的图像中心
-            center = resized_texture.get_rect(center=(src_rect.centerx, src_rect.centery))
             # 旋转图像
             rotated_texture = pygame.transform.rotate(resized_texture, angle)
             # 获取旋转后图像的矩形
@@ -92,7 +96,7 @@ class Game:
             rotated_texture = resized_texture
             rotated_rect = rotated_texture.get_rect()
             rotated_rect.center = dest_rect.center
-
+        
         # 绘制图像
         self.screen.blit(rotated_texture, rotated_rect.topleft)
 

@@ -1,0 +1,26 @@
+{
+    "player": {
+        "x": 400,
+        "y": 488
+    },
+    "cubes": [
+    ],
+    "portals": [
+        {
+            "type": -1,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "facing": 0
+        },
+        {
+            "type": -1,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "facing": 0
+        }
+    ]
+}

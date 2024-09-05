@@ -7,12 +7,14 @@ class EventList:
         self.events = {}
         for k, v in events.items():
             self.events[k] = create_event(k, v)
+            # print(k, type(self.events[k]))
 
     def update(self):
         for event in self.events.values():
             event.update()
 
     def get_event(self, id):
+        # print(id, type(self.events.get(id)))
         return self.events.get(id)
 
     def draw(self):
@@ -30,7 +32,11 @@ def create_event(id, event_data):
             event_data['affect']
         )
         from game import Game
-        Game.get_instance().map_manager.super_edges.append(e.block)
+        import copy
+# 在追加到列表之前，做一个浅拷贝
+        Game.get_instance().map_manager.super_edges.append(e.block.hitbox)
+
+
         return e
     # Wire
     if event_data['type'] == 2:
@@ -58,11 +64,10 @@ def create_event(id, event_data):
         e = DoorEvent(
             id,
             event_data['type'],
-            event_data['hitbox'],
-            event_data['affect']
+            event_data['hitbox']
         )
         from game import Game
-        Game.get_instance().map_manager.super_edges.append(e.block)
+        Game.get_instance().map_manager.super_edges.append(e.block.hitbox)
         return e
     from event import GameEvent
     return GameEvent(

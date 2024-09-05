@@ -3,7 +3,7 @@ from Managers.map_manager import Tile
 
 
 class GameEvent(Tile):
-    def __init__(self, id, type, hitbox, affect):
+    def __init__(self, id, type, hitbox, affect = []):
         super().__init__(hitbox, type)
         self.id = id
         self.activated = False
@@ -32,7 +32,7 @@ class GameEvent(Tile):
 
         for id in self.affect:
             from game import Game
-            event = Game.get_instance().map_manager.events.get_event(id)
+            event = Game.get_instance().view.events.get_event(id)
             event.activate()
 
     def deactivate(self):
@@ -41,7 +41,7 @@ class GameEvent(Tile):
         self.activated = False
         for id in self.affect:
             from game import Game
-            event = Game.get_instance().map_manager.events.get_event(id)
+            event = Game.get_instance().view.events.get_event(id)
             event.deactivate()
 
     def on_activate(self):

@@ -62,3 +62,5 @@ class Hitbox(Rect):
         return self
 def create_hitbox(left_up : Vector, right_down : Vector) -> Hitbox:
     return Hitbox(left_up.x, left_up.y, right_down.x - left_up.x, right_down.y - left_up.y)
+def create_vector(dic : dict) -> Vector:
+    return Vector(dic["x"], dic["y"])

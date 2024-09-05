@@ -113,7 +113,7 @@ class MapManager:
                 Edge(super_edge["hitbox"], super_edge["type"], super_edge["facing"])
             )
         self.events.init(data["events"])
-        print(data["events"])
+        # print(data["events"])
         self.prerender_map()
 
     def prerender_map(self):
