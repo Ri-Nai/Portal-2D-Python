@@ -20,6 +20,11 @@ class View:
         )
         from portal import Portal, is_valid_position, fix_position
         from portal_gun import PortalGun
+        from cube import Cube
+        if view_data["cube"]:
+            self.cube = Cube(view_data["cube"]["x"], view_data["cube"]["y"])
+        else:
+            self.cube = None
         self.portals = [
             Portal(
                 position = create_vector(view_data["portals"][0]["position"]),
@@ -33,12 +38,12 @@ class View:
             )]
         self.portal_gun = PortalGun()
         self.entities = [self.player]
+        if self.cube:
+            self.entities.append(self.cube)
         self.events = self.map_manager.events
 
         self.computations = []
         self.renderings = []
-        self.computations.append(self.player.update)
-        self.computations.append(self.portal_gun.update)
 
         def make_portal():
             self.portal_gun.update_shooting(
@@ -60,12 +65,16 @@ class View:
                         position, self.portal_gun.flyingType, edge.facing
                     )
 
+        for entity in self.entities:
+            self.computations.append(entity.update)
+        self.computations.append(self.portal_gun.update)
         self.computations.append(make_portal)
         self.computations.append(self.events.update)
 
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.events.draw)
-        self.renderings.append(self.player.draw)
+        for entity in self.entities:
+            self.renderings.append(entity.draw)
         self.renderings.append(self.portal_gun.draw)
 
     def update(self):
