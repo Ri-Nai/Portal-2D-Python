@@ -41,6 +41,8 @@ class SoundManager:
                 return
         
         channel_id = len(self.channels)
+        if channel_id >= 8:
+            return
         channel = pygame.mixer.Channel(channel_id)
         self.channel_status[channel_id] = f'{kind}@{id}'
         channel.play(sound)
