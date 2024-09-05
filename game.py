@@ -28,13 +28,16 @@ class Game:
         )
         self.data_manager = DataManager()
         self.map_manager = MapManager()
-        self.map_manager.loadFromURL(
-            os.path.join(os.path.dirname(__file__), "assets/stages/maps", "Test2.json")
-        )
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
-        self.view = View()
 
+        self.load()
+
+    def load(self, url = "Test2.json"): 
+        self.map_manager.loadFromURL(
+            os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
+        )
+        self.view = View()
         self.computations = []
         self.renderings = []
         
@@ -88,6 +91,9 @@ class Game:
 
         # 绘制图像
         self.screen.blit(rotated_texture, rotated_rect.topleft)
+
+    def switch_view(self, url):
+        self.load(url)
 
     def loop(self):
         # 游戏主循环代码
