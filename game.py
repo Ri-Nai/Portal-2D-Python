@@ -5,6 +5,7 @@ from Managers import MapManager, Edge, basic_size
 from Managers import MouseManager
 from Managers import KeyboardManager
 from Managers import TextureManager
+from pause_screen import PauseScreen
 from player import Player
 from components import Hitbox, Vector
 import portal
@@ -13,7 +14,6 @@ from portal import Portal
 from portal_gun import PortalGun
 from view import View
 import os
-
 
 class Game:
     _instance = None
@@ -31,7 +31,10 @@ class Game:
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
 
+        self.pause_screen = PauseScreen()
+
         self.load()
+        self.is_paused = False
 
     def load(self, url = "Test2.json"): 
         self.map_manager.loadFromURL(
@@ -47,6 +50,7 @@ class Game:
 
         self.renderings.append(self.view.draw)
         self.renderings.append(self.mouse_manager.draw)
+        self.renderings.append(self.pause_screen.draw)
 
     @classmethod
     def get_instance(cls, screen: pygame.Surface = None):
@@ -98,9 +102,16 @@ class Game:
     def loop(self):
         # 游戏主循环代码
         self.screen.fill((255, 255, 255))
-        for computation in self.computations:
-            computation()
+        if not self.is_paused:
+            for computation in self.computations:
+                computation()
         for rendering in self.renderings:
             rendering()
         # print(self.portals[0].type)
+
+    def toggle_pause(self, status: bool):
+        self.is_paused = status
         
+    def resume(self):
+        self.toggle_pause(False)
+        self.mouse_manager.capture()
