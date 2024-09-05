@@ -1,0 +1,27 @@
+{
+    "player": {
+        "x": 120,
+        "y": 488
+    },
+    "cube": {},
+
+    "portals": [
+        {
+            "type": 0,
+            "position": {
+                "x": 40,
+                "y": 560
+            },
+            "facing": 3
+        },
+        {
+            "type": 1,
+            "position": {
+                "x": 1240,
+                "y": 560
+            },
+            "facing": 1
+        }
+    ],
+    "GLaDOS": true
+}

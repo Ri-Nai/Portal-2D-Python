@@ -56,6 +56,7 @@ class Player(Entity):
         self.isSpaceHeld = False
         self.animation = Animation()
         self.is_player = True
+        self.blood = 120
     def update(self):
         move = 0
         def controllerX():

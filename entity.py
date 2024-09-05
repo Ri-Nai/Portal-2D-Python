@@ -72,6 +72,7 @@ class Entity:
         self.is_flying = False
         self.in_portal = False
         self.is_player = False
+        self.is_bullet = False
 
     def isOnGround(self):
         down_hitbox = self.hitbox.copy() + Vector(0, 1)
@@ -117,7 +118,6 @@ class Entity:
                 from game import Game
                 Game.get_instance().sound_manager.play_sound("portal-teleporting")
                 return 1 << (i ^ 1)
-        # self.hitbox.move_ip(-delta[0], -delta[1])
         self.hitbox -= delta
         return 0
 
