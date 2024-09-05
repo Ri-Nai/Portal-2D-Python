@@ -8,7 +8,6 @@ offset_size = 1.6
 class Tile(Hitbox):
     colors = ["red", "green", "blue"]
 
-    # 这里添加 Tile 类特有的初始化代码
     def __init__(self, hitbox, type_: int):
         if type(hitbox) == dict:
             super().__init__(
@@ -17,27 +16,34 @@ class Tile(Hitbox):
         else:
             super().__init__(hitbox.x, hitbox.y, hitbox.width, hitbox.height)
         self.type = type_
-
-    def draw(self, kind):
+    def draw(self, kind, screen = None):
         from game import Game
-
+        if screen == None:
+            screen = Game.get_instance().screen
         for i in range(0, self.width, basic_size):
             for j in range(0, self.height, basic_size):
-                # pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size, basic_size))
-                Game.get_instance().draw_image(
-                    Game.get_instance().texture_manager.get_texture(kind, self.type),
-                    Hitbox(self.x + i - offset_size, self.y + j - offset_size, basic_size + offset_size * 2, basic_size + offset_size * 2),
-                )
-
+                texture = Game.get_instance().texture_manager.get_texture(kind, self.type)
+                if texture:
+                    scaled_texture = pygame.transform.scale(
+                        texture, (basic_size + offset_size * 2, basic_size + offset_size * 2)
+                    )
+                    dest_rect = pygame.Rect(
+                        self.x + i - offset_size,
+                        self.y + j - offset_size,
+                        basic_size + offset_size * 2,
+                        basic_size + offset_size * 2)
+                    screen.blit(scaled_texture, dest_rect)
+                else:
+                    print(f"Texture not found for type {self.type} in kind {kind}")
 
 class Layer:
     def __init__(self):
         self.tiles = []
         self.opacity = 1
 
-    def draw(self, kind):
+    def draw(self, kind, screen):
         for tile in self.tiles:
-            tile.draw(kind)
+            tile.draw(kind, screen)
 
 
 class Edge(Tile):
@@ -45,15 +51,6 @@ class Edge(Tile):
         super().__init__(hitbox, type)
         self.facing = facing
 
-    def draw(self):
-        from game import Game
-
-        """
-        for i in range(0, self.width, basic_size // 2):
-            for j in range(0, self.height, basic_size // 2):
-                # pygame.draw.rect(Game.get_instance().screen, Tile.colors[self.type], (self.x + i, self.y + j, basic_size // 2, basic_size // 2))
-                Game.get_instance().draw_rect(Tile.colors[self.type], (self.x + i, self.y + j, basic_size // 2, basic_size // 2))
-        """
 
 typename = ["backgrounds", "", "", "backgroundTextures", "", "", ""]
 class MapManager:
@@ -62,6 +59,7 @@ class MapManager:
         self.blocks: list[Tile] = []
         self.edges: list[Edge] = []
         self.super_edges: list[Edge] = []
+        self.prerendered_map_surface = None
 
     def loadFromURL(self, url):
         from game import Game
@@ -81,9 +79,21 @@ class MapManager:
             self.super_edges.append(
                 Edge(super_edge["hitbox"], super_edge["type"], super_edge["facing"])
             )
+        self.prerender_map()
+
+    def prerender_map(self):
+        from game import Game
+        screen_width, screen_height = Game.get_instance().screen.get_size()
+        self.prerendered_map_surface = pygame.Surface((screen_width, screen_height))
+        self.prerendered_map_surface.fill((0, 0, 0))  # 用黑色填充背景
+
+        # 遍历所有砖块并绘制到 Surface 上
+        for i, layer in enumerate(self.layers):
+            layer.draw(typename[i], self.prerendered_map_surface)
+        for block in self.blocks:
+            block.draw("blocks", self.prerendered_map_surface)
 
     def draw(self):
-        for i, layer in enumerate(self.layers):
-            layer.draw(typename[i])
-        for block in self.blocks:
-            block.draw("blocks")
+        from game import Game
+        if self.prerendered_map_surface:
+            Game.get_instance().screen.blit(self.prerendered_map_surface, (0, 0))

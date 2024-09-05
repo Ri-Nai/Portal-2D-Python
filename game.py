@@ -22,6 +22,9 @@ class Game:
             raise RuntimeError("Game instance already exists!")
         Game._instance = self  # 使用类属性来存储单例实例
         self.screen = screen
+        self.texture_manager = TextureManager(
+            os.path.join(os.path.dirname(__file__), "assets/imgs/textures.json")
+        )
         self.data_manager = DataManager()
         self.map_manager = MapManager()
         self.map_manager.loadFromURL(
@@ -29,9 +32,6 @@ class Game:
         )
         self.mouse_manager = MouseManager(screen)
         self.keyboard_manager = KeyboardManager()
-        self.texture_manager = TextureManager(
-            os.path.join(os.path.dirname(__file__), "assets/imgs/textures.json")
-        )
         self.player = Player(
             Hitbox(4 * basic_size, 4 * basic_size, 1.2 * basic_size, 1.8 * basic_size)
         )
@@ -66,7 +66,6 @@ class Game:
                         # self.portal_gun.flyingType, position, edge.facing
                         position, self.portal_gun.flyingType, edge.facing
                     )
-
         self.computations.append(make_portal)
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.mouse_manager.draw)
