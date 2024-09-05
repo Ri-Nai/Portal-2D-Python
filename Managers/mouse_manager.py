@@ -33,8 +33,10 @@ class MouseManager:
 
     def draw(self):
         if self.is_capture:
-            pygame.draw.rect(self.screen, (255, 255, 255), (self.x - 3, self.y - 3, 6, 6))
-            pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y - 2, 4, 4))
+            # pygame.draw.rect(self.screen, (255, 255, 255), (self.x - 3, self.y - 3, 6, 6))
+            # pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y - 2, 4, 4))
+            from game import Game
+            Game.get_instance().draw_image(Game.get_instance().texture_manager.get_texture("cursor"), Hitbox(self.x - 4, self.y - 5, 16, 22), Hitbox(12, 9, 16, 22))
 
     def get_position(self):
         return Vector(self.x, self.y)

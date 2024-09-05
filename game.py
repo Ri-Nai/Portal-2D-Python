@@ -40,7 +40,7 @@ class Game:
         self.load()
         self.is_paused = False
 
-    def load(self, url = "Room1.json"): 
+    def load(self, url = "Room13.json"): 
         self.current_url = url
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
@@ -108,6 +108,14 @@ class Game:
 
     def switch_view(self, url):
         self.load(url)
+        if "14" in url:
+            pygame.mixer.stop()
+            pygame.mixer.music.load("assets/audios/bgms/上海アリス幻樂団 - 月まで届け、不死の煙.mp3")
+            pygame.mixer.music.play(-1)
+        elif "over" in url:
+            pygame.mixer.stop()
+            pygame.mixer.music.load("assets/audios/bgms/村上純 - かえり道.mp3")
+            pygame.mixer.music.play()
 
     def loop(self):
         # 游戏主循环代码

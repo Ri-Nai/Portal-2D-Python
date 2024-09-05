@@ -16,14 +16,14 @@ class Button(Tile):
         self.hitbox.y = self.y + self.height / 2
         self.hitbox.height = self.height / 2
         from game import Game
-        Game.get_instance().sound_manager.play_sound("button", 0)
+        Game.get_instance().sound_manager.play_sound("button", "0")
 
     def on_deactivate(self):
         self.activated = False
         self.hitbox.y = self.y
         self.hitbox.height = self.height
         from game import Game
-        Game.get_instance().sound_manager.play_sound("button", 1)
+        Game.get_instance().sound_manager.play_sound("button", "1")
 
     def draw(self):
         from game import Game, offset_size
