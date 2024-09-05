@@ -59,6 +59,8 @@ class MapManager:
         self.blocks: list[Tile] = []
         self.edges: list[Edge] = []
         self.super_edges: list[Edge] = []
+        from event_list import EventList
+        self.events = EventList()
         self.prerendered_map_surface = None
 
     def loadFromURL(self, url):
@@ -79,6 +81,7 @@ class MapManager:
             self.super_edges.append(
                 Edge(super_edge["hitbox"], super_edge["type"], super_edge["facing"])
             )
+        self.events.init(data["events"])
         self.prerender_map()
 
     def prerender_map(self):

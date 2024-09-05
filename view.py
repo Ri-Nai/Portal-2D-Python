@@ -16,6 +16,7 @@ class View:
 
         self.portals = [Portal(), Portal()]
         self.portal_gun = PortalGun()
+        self.entities = [self.player]
 
         self.computations = []
         self.renderings = []

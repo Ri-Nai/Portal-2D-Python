@@ -1,36 +1,34 @@
-from Event import GameEvent
+from event import GameEvent
 from Managers.map_manager import Tile
 from components import Hitbox
 
-class Door(Tile):
-    def __init__(self, type, x, y, width, height, event):
-        super().__init__(x, y, width, height, type)
-        self.event = event
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
 
-    #TODO:
-    def draw(self):#暂定
+class Door(Tile):
+    def __init__(self, type, hitbox, event):
+        super().__init__(hitbox, type)
+        self.event = event
+        self.hitbox = Hitbox(self.x, self.y, self.width, self.height)
+    def draw(self):  # 暂定
+        #TODO:
         pass
 
-    def onActivate(self):
-        self.hitbox = Hitbox(0,0,1,1)
+    def on_activate(self):
+        self.hitbox = Hitbox(0, 0, 1, 1)
 
-    def onDeactivate(self):
+    def on_deactivate(self):
         self.hitbox = Hitbox(self.x, self.y, self.width, self.height)
 
+
 class DoorEvent(GameEvent):
-    def __init__(self,id,type,x,y,width,height):
-        super().__init__(id, type, x, y, width, height, None)
-        self.block = Door(101, x, y, width, height, self)
+    def __init__(self, id, type, hitbox):
+        super().__init__(id, type, hitbox, None)
+        self.block = Door(101, hitbox, self)
 
     def update(self):
         pass
 
-    def onActivate(self):
-        self.block.onActivate(self)
+    def on_activate(self):
+        self.block.on_activate(self)
 
-    def onDeactivate(self):
-        self.block.onDeactivate(self)
+    def on_deactivate(self):
+        self.block.on_deactivate(self)
