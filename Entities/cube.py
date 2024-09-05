@@ -1,7 +1,7 @@
-from entity import Entity
+from Entities.entity import Entity
 from components import Vector, Hitbox
 from Managers.map_manager import basic_size, half_size
-from player import player_size
+from Entities.player import player_size
 
 
 class Cube(Entity):

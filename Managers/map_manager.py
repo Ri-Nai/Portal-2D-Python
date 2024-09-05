@@ -92,7 +92,7 @@ class MapManager:
         self.blocks: list[Tile] = []
         self.edges: list[Edge] = []
         self.super_edges: list[Edge] = []
-        from event_list import EventList
+        from GameEvents.event_list import EventList
         self.events = EventList()
         self.prerendered_map_surface = None
     def loadFromURL(self, url):

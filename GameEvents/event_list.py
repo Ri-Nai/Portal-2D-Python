@@ -25,7 +25,7 @@ class EventList:
 def create_event(id, event_data):
     # ButtonEvent
     if event_data['type'] == 1:
-        from button import ButtonEvent
+        from GameEvents.button import ButtonEvent
         e = ButtonEvent(
             id,
             event_data['type'],
@@ -40,7 +40,7 @@ def create_event(id, event_data):
         return e
     # Wire
     if event_data['type'] == 2:
-        from wire import Wire
+        from GameEvents.wire import Wire
         return Wire(
             id,
             event_data['type'],
@@ -51,7 +51,7 @@ def create_event(id, event_data):
         )
     # ViewSwitch
     if event_data['type'] == 3:
-        from view_switch import ViewSwitch
+        from GameEvents.view_switch import ViewSwitch
         return ViewSwitch(
             id,
             event_data['type'],
@@ -60,7 +60,7 @@ def create_event(id, event_data):
         )
     # DoorEvent
     if event_data['type'] == 4:
-        from door import DoorEvent
+        from GameEvents.door import DoorEvent
         e = DoorEvent(
             id,
             event_data['type'],
@@ -69,7 +69,7 @@ def create_event(id, event_data):
         from game import Game
         Game.get_instance().map_manager.super_edges.append(e.block.hitbox)
         return e
-    from event import GameEvent
+    from GameEvents.event import GameEvent
     return GameEvent(
         id,
         event_data['type'],

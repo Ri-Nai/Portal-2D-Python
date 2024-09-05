@@ -22,7 +22,7 @@ class GLaDOS(Hitbox):
         self.shootingBuffer = self.shootingBuffetTime * 2
         self.movingBuffer = self.movingBufferTime
         self.blood = blood_limit
-        from bullet import Bullet
+        from Entities.bullet import Bullet
 
         self.bullets: list[Bullet] = []
         self.shootingStyle = 0
@@ -58,7 +58,7 @@ class GLaDOS(Hitbox):
         if not self.stillAlive:
             return
 
-        from player import player_size
+        from Entities.player import player_size
 
         # print(self.movingBuffer)
         self.movingBuffer = max(0, self.movingBuffer - RANDOM(1, 1.5))
@@ -110,7 +110,7 @@ class GLaDOS(Hitbox):
             )
             direction = player.hitbox.get_center() - new_position
             velocity = direction.normalize().scale(RANDOM(0.5, 5))
-            from bullet import Bullet
+            from Entities.bullet import Bullet
 
             self.bullets.append(Bullet(new_position, velocity, 3))
 
@@ -128,7 +128,7 @@ class GLaDOS(Hitbox):
             direction = Vector(cos(l) * radius, -sin(l) * radius)
             velocity = direction.normalize().scale(10)  # 直接规范化并缩放速度
 
-            from bullet import Bullet
+            from Entities.bullet import Bullet
 
             # 创建弹幕并添加到列表中
             print(space)
@@ -149,12 +149,12 @@ class GLaDOS(Hitbox):
         if RANDOM(0, 1) < 0.2:
             velocity = -velocity
         for i in range(int(left), int(right), int(space)):
-            from bullet import Bullet
+            from Entities.bullet import Bullet
 
             self.bullets.append(Bullet(Vector(i, top), Vector(0, -velocity), 1))
             self.bullets.append(Bullet(Vector(i, bottom), Vector(0, velocity), 1))
         for i in range(int(top), int(bottom), int(space)):
-            from bullet import Bullet
+            from Entities.bullet import Bullet
 
             self.bullets.append(Bullet(Vector(left, i), Vector(velocity, 0), 1))
             self.bullets.append(Bullet(Vector(right, i), Vector(-velocity, 0), 1))
@@ -169,7 +169,7 @@ class GLaDOS(Hitbox):
             radius = i * 2
             direction = Vector(COS(angle), -SIN(angle)).scale(radius)
             velocity = direction.normalize().scale((radius / 10) * (1 + i / 100))
-            from bullet import Bullet
+            from Entities.bullet import Bullet
             self.bullets.append(Bullet(center + direction, velocity, 2))
         self.baseAngle += angle_step * RANDOM(0.8, 1.2)
     def draw_blood(self):

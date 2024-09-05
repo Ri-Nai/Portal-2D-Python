@@ -7,7 +7,7 @@ from Managers import KeyboardManager
 from Managers import TextureManager
 from Managers import SoundManager
 from pause_screen import PauseScreen
-from player import Player
+from Entities.player import Player
 from components import Hitbox, Vector
 import portal
 import portal_gun
@@ -40,7 +40,7 @@ class Game:
         self.load()
         self.is_paused = False
 
-    def load(self, url = "Room13.json"): 
+    def load(self, url = "Room1.json"): 
         self.current_url = url
         self.map_manager.loadFromURL(
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)

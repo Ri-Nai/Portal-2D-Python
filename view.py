@@ -7,7 +7,7 @@ class View:
 
         self.map_manager = Game.get_instance().map_manager
         self.mouse_manager = Game.get_instance().mouse_manager
-        from player import Player
+        from Entities.player import Player
         from game import basic_size
 
         self.player = Player(
@@ -20,7 +20,7 @@ class View:
         )
         from portal import Portal, is_valid_position, fix_position
         from portal_gun import PortalGun
-        from cube import Cube
+        from Entities.cube import Cube
         if view_data["cube"]:
             self.cube = Cube(view_data["cube"]["x"], view_data["cube"]["y"])
         else:
@@ -38,7 +38,7 @@ class View:
             )]
         self.portal_gun = PortalGun()
         self.entities = [self.player]
-        from GLaDOS import GLaDOS
+        from Entities.GLaDOS import GLaDOS
         self.GLaDOS = GLaDOS(view_data.get("GLaDOS", False))
         print(self.GLaDOS.stillAlive)
         if self.cube:

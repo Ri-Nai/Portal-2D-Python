@@ -1,4 +1,4 @@
-from event import GameEvent
+from GameEvents.event import GameEvent
 from Managers.map_manager import Tile
 from components import Hitbox
 

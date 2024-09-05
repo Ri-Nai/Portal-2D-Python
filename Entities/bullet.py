@@ -1,4 +1,4 @@
-from entity import Entity
+from Entities.entity import Entity
 from game import basic_size
 from components import *
 

@@ -19,7 +19,8 @@
         "8": "./assets/imgs/textures/numbers/bts_sign_number_08.png",
         "9": "./assets/imgs/textures/numbers/bts_sign_number_09.png",
         "11": "./assets/imgs/textures/guitar.png",
-        "12": "./assets/imgs/CG/game-over.png"
+        "12": "./assets/imgs/CG/game-over.png",
+        "13": "./assets/imgs/textures/parfait/parfait0.png"
     },
     "blocks": {
         "1": "./assets/imgs/textures/blocks/black-floor.png",
@@ -149,8 +150,5 @@
         "-5": "./assets/imgs/textures/player/stands/left/stand_0005.png",
         "-6": "./assets/imgs/textures/player/stands/left/stand_0006.png",
         "-7": "./assets/imgs/textures/player/stands/left/stand_0007.png"
-    },
-    "parfait": {
-        "0": "./assets/imgs/textures/parfait/parfait0.png"
     }
 }

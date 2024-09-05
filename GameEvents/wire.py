@@ -1,4 +1,4 @@
-from event import GameEvent
+from GameEvents.event import GameEvent
 
 
 class Wire(GameEvent):

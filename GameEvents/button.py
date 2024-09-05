@@ -38,7 +38,7 @@ class Button(Tile):
         # Game.get_instance().draw_rect("red", self.hitbox)
 
 
-from event import GameEvent
+from GameEvents.event import GameEvent
 
 
 class ButtonEvent(GameEvent):
