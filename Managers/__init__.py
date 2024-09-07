@@ -4,3 +4,4 @@ from .mouse_manager import MouseManager
 from .keyboard_manager import KeyboardManager
 from .texture_manager import TextureManager
 from .sound_manager import SoundManager
+from .dialog_manager import DialogManager

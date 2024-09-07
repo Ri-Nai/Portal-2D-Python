@@ -10,6 +10,9 @@ class MouseManager:
         self.left = False
         self.right = False
 
+        self.left_held = False
+        self.right_held = False
+
     def capture(self):
         self.is_capture = True
         pygame.mouse.set_visible(False)
@@ -30,7 +33,31 @@ class MouseManager:
         buttons = pygame.mouse.get_pressed()
         self.left = buttons[0]
         self.right = buttons[2]
-
+    def is_down(self, key):
+        if key == "Left":
+            return self.left
+        if key == "Right":
+            return self.right
+    
+    def first_down(self, key, operate = None):
+        if key == "Left":
+            if self.left:
+                if not self.left_held:
+                    if operate: operate()
+                self.left_held = True
+                return True
+            else:
+                self.left_held = False
+                return False
+        if key == "Right":
+            if self.right:
+                if not self.right_held:
+                    if operate: operate()
+                self.right_held = True
+                return True
+            else:
+                self.right_held = False
+                return False
     def draw(self):
         if self.is_capture:
             # pygame.draw.rect(self.screen, (255, 255, 255), (self.x - 3, self.y - 3, 6, 6))

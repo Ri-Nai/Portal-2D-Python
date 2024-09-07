@@ -31,7 +31,7 @@ class Cube(Entity):
         else:
             self.canPick = False
         if self.canPick:
-            Game.get_instance().keyboard_manager.firstDown("E", self.unPicked)
+            Game.get_instance().keyboard_manager.first_down("E", self.unPicked)
         if self.isPicked:
             self.hitbox.x = player.hitbox.x
             self.hitbox.y = player.hitbox.y

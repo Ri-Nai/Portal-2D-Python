@@ -57,21 +57,26 @@ class Player(Entity):
         self.animation = Animation()
         self.is_player = True
         self.blood = 120
+        self.block_move = False
     def update(self):
         move = 0
         def controllerX():
+            if self.block_move:
+                return 0
             from game import Game
             nonlocal move
-            moveLeft = Game.get_instance().keyboard_manager.isKeysDown(["A", "Left"])
-            moveRight = Game.get_instance().keyboard_manager.isKeysDown(["D", "Right"])
+            moveLeft = Game.get_instance().keyboard_manager.is_keys_down(["A", "Left"])
+            moveRight = Game.get_instance().keyboard_manager.is_keys_down(["D", "Right"])
             if moveLeft:
                 self.facing = move = -1
             if moveRight:
                 self.facing = move = 1
             return move
         def controllerY():
+            if self.block_move:
+                return 0
             from game import Game
-            return Game.get_instance().keyboard_manager.firstDown("Space", self.jumping.setJumpBuffer)
+            return Game.get_instance().keyboard_manager.first_down("Space", self.jumping.setJumpBuffer)
         self.updateXY(controllerX(), controllerY())
         if self.jumping.jumpVelocity > 0:
             self.animation.setStatus("jump", self.facing)

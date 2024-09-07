@@ -1,11 +1,6 @@
 # game.py
 import pygame
-from Managers import DataManager
-from Managers import MapManager, Edge, basic_size, offset_size
-from Managers import MouseManager
-from Managers import KeyboardManager
-from Managers import TextureManager
-from Managers import SoundManager
+from Managers import *
 from pause_screen import PauseScreen
 from Entities.player import Player
 from components import Hitbox, Vector
@@ -34,7 +29,7 @@ class Game:
         self.sound_manager = SoundManager(
             os.path.join(os.path.dirname(__file__), "assets/audios/Sounds.json")
         )
-
+        self.dialog_manager = DialogManager()
         self.pause_screen = PauseScreen()
 
         self.load()
@@ -49,6 +44,7 @@ class Game:
             os.path.join(os.path.dirname(__file__), "assets/stages/view_data", url)
         )
         self.view = View(view_data)
+        self.dialog_manager.show(["我草死你的吗", "aiyaminuos"])
         self.computations = []
         self.renderings = []
         
@@ -56,10 +52,12 @@ class Game:
         self.computations.append(self.keyboard_manager.update)
         self.computations.append(self.view.update)
         self.computations.append(self.sound_manager.update)
+        self.computations.append(self.dialog_manager.update)
 
         self.renderings.append(self.view.draw)
         self.renderings.append(self.mouse_manager.draw)
         self.renderings.append(self.pause_screen.draw)
+        self.renderings.append(self.dialog_manager.draw)
 
     @classmethod
     def get_instance(cls, screen: pygame.Surface = None):

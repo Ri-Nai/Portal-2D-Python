@@ -9,6 +9,7 @@ class KeyboardManager:
         self.keymap = {
             "Esc": pygame.K_ESCAPE,
             "Space": pygame.K_SPACE,
+            "Enter": pygame.K_RETURN,
             "Left": pygame.K_LEFT,
             "Right": pygame.K_RIGHT,
             "A": pygame.K_a,
@@ -23,14 +24,14 @@ class KeyboardManager:
         for key in self.keymap:
             self.status[key] = keys_pressed[self.keymap[key]]
 
-    def isKeyDown(self, key):
+    def is_key_down(self, key):
         return self.status[key]
 
-    def isKeysDown(self, keys):
-        return any(self.isKeyDown(key) for key in keys)
+    def is_keys_down(self, keys):
+        return any(self.is_key_down(key) for key in keys)
 
-    def firstDown(self, key, operate=None):
-        if self.isKeyDown(key):
+    def first_down(self, key, operate=None):
+        if self.is_key_down(key):
             if not self.is_held[key]:
                 if operate is not None:
                     operate()

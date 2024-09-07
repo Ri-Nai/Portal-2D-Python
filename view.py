@@ -52,10 +52,11 @@ class View:
             self.portal_gun.update_shooting(
                 self.player.hitbox.get_center(), self.mouse_manager.get_position()
             )
-            if self.mouse_manager.left:
-                self.portal_gun.shot(self.player.hitbox.get_center(), 0)
-            if self.mouse_manager.right:
-                self.portal_gun.shot(self.player.hitbox.get_center(), 1)
+            if not self.player.block_move:
+                if self.mouse_manager.left:
+                    self.portal_gun.shot(self.player.hitbox.get_center(), 0)
+                if self.mouse_manager.right:
+                    self.portal_gun.shot(self.player.hitbox.get_center(), 1)
             if self.portal_gun.isHit:
                 position = self.portal_gun.position.copy()
                 edge = self.portal_gun.edge
