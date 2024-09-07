@@ -110,7 +110,43 @@ class Entity:
         self.velocity = self.velocity.rotate(angle)
         self.jumping.jumpVelocity = -self.velocity.y
 
- 
+    def checkPortal(self, delta: Vector):
+        from game import Game
+
+        portals = Game.get_instance().view.portals
+        if portals[0].type == -1 or portals[1].type == -1:
+            return False
+        self.hitbox += delta
+        for i in range(2):
+            flag = portals[i].isMoveIn(self.hitbox)
+            if flag:
+                infacing = portals[i].infacing
+                new_position = self.moveOutPortalPosition(portals[i ^ 1])
+                if new_position == None:
+                    break
+                from portal import unit_direction
+
+                if self.velocity.dot(unit_direction[infacing]) <= self.MaxSpeed * 1.2:
+                    if unit_direction[infacing].x != 0:
+                        self.velocity.x = (
+                            unit_direction[infacing].x * self.MaxSpeed * 1.2
+                        )
+                    else:
+                        self.velocity.y = (
+                            unit_direction[infacing].y * self.MaxSpeed * 1.2
+                        )
+                self.rotateVelocity(infacing, portals[i ^ 1].facing)
+                if portals[i ^ 1].facing & 1:
+                    self.is_flying = self.flyingBuffer
+                    self.facing = portals[i ^ 1].facing - 2
+                self.hitbox.set_position(new_position)
+                from game import Game
+
+                Game.get_instance().sound_manager.play_sound("portal-teleporting")
+                return 1 << (i ^ 1)
+        self.hitbox -= delta
+        return 0
+
     from portal import Portal
 
     def moveOutPortalPosition(self, portal: Portal):
