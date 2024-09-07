@@ -84,6 +84,9 @@ class Player(Entity):
                 self.animation.setStatus("stand", self.facing)
         self.animation.update()
         self.check_out_of_map()
+        if self.blood <= 0:
+            from game import Game
+            Game.get_instance().restart()
     def draw(self):
         from game import Game
         # Game.get_instance().draw_rect("pink", self.hitbox)

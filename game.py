@@ -25,7 +25,7 @@ class Game:
         Game._instance = self  # 使用类属性来存储单例实例
         self.screen = screen
         self.texture_manager = TextureManager(
-            os.path.join(os.path.dirname(__file__), "assets/imgs/textures.json")
+            os.path.join(os.path.dirname(__file__), "assets/imgs/Textures.json")
         )
         self.data_manager = DataManager()
         self.map_manager = MapManager()
@@ -125,7 +125,6 @@ class Game:
                 computation()
         for rendering in self.renderings:
             rendering()
-        # print(self.portals[0].type)
 
     def toggle_pause(self, status: bool):
         self.pause() if status else self.resume()

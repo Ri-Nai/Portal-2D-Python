@@ -8,19 +8,8 @@ filename = name + ".xlsx"
 this_path = os.path.dirname(__file__)
 path_filename = os.path.join(this_path, filename)
 father = os.path.join(this_path, "..")
-df = pd.read_excel(path_filename, index_col=None, header=None)
-# data = op.load_workbook(path_filename)
-A = df.values.tolist()
-print(A)
-for i in range(len(A)):
-    for j in range(len(A[i])):
-        if np.isnan(A[i][j]):
-            A[i][j] = 0  # 将 NaN 转换为 0
-        else:
-            A[i][j] = int(A[i][j])  # 将浮点数转换为整数
-    A[i].append(-1.5)
-print(A)
-print(len(A), len(A[0]))
+
+
 basic_size = 40
 layer_background_texture = 3
 layer_background_objects = 4
@@ -31,8 +20,24 @@ blocks = []
 edges = []
 super_edges = []
 
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
 
 def fill_block():
+    df = pd.read_excel(path_filename, index_col=None, header=None)
+# data = op.load_workbook(path_filename)
+    A = df.values.tolist()
+    print(A)
+    for i in range(len(A)):
+        for j in range(len(A[i])):
+            if np.isnan(A[i][j]):
+                A[i][j] = 0  # 将 NaN 转换为 0
+            else:
+                A[i][j] = int(A[i][j])  # 将浮点数转换为整数
+        A[i].append(-1.5)
+    print(A)
+    print(len(A), len(A[0]))
+
     for i in range(18):
         len = 0
         for j in range(33):
@@ -56,6 +61,28 @@ def fill_block():
 
 
 def fill_edge():
+    df = pd.read_excel(path_filename, index_col=None, header=None)
+# data = op.load_workbook(path_filename)
+    A = df.values.tolist()
+    print(A)
+    for i in range(len(A)):
+        for j in range(len(A[i])):
+            if np.isnan(A[i][j]):
+                A[i][j] = 0  # 将 NaN 转换为 0
+            else:
+                A[i][j] = int(A[i][j])  # 将浮点数转换为整数
+        A[i].append(-1.5)
+    print(A)
+    print(len(A), len(A[0]))
+    basic_size = 40
+    layer_background_texture = 3
+    layer_background_objects = 4
+    layer_edge = 5
+    layer_upper_texture = 6
+    layers = [{"tiles" : [], "opacity" : 1} for i in range(7)]
+    blocks = []
+    edges = []
+    super_edges = []
     B = [[-1] * 34 for i in range(20)]
     for i in range(18):
         for j in range(32):
@@ -138,9 +165,6 @@ def fill_edge():
 
 fill_block()
 fill_edge()
-
-dx = [-1, 0, 1, 0]
-dy = [0, -1, 0, 1]
 
 
 def get_fa(fa, x):
