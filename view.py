@@ -40,7 +40,7 @@ class View:
         self.entities = [self.player]
         from Entities.GLaDOS import GLaDOS
         self.GLaDOS = GLaDOS(view_data.get("GLaDOS", False))
-        print(self.GLaDOS.stillAlive)
+        print(self.GLaDOS.still_alive)
         if self.cube:
             self.entities.append(self.cube)
         self.events = self.map_manager.events

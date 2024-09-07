@@ -2,7 +2,7 @@ from pygame import Vector2
 from pygame import Rect
 class Vector(Vector2):
     def round(self):
-        return Vector2(round(self.x), round(self.y))
+        return Vector(round(self.x), round(self.y))
     def get_angle(self):
         from math import atan2, pi
         return atan2(self.y, self.x) * 180 / pi

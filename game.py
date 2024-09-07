@@ -41,10 +41,12 @@ class Game:
             os.path.join(os.path.dirname(__file__), "assets/stages/maps", url)
         )
         view_data = self.data_manager.loadJSON(
-            os.path.join(os.path.dirname(__file__), "assets/stages/view_data", url)
+            os.path.join(os.path.dirname(__file__), "assets/stages/positions", url)
         )
         self.view = View(view_data)
-        self.dialog_manager.show(["我草死你的吗", "aiyaminuos"])
+        self.dialog_manager.load(
+            os.path.join(os.path.dirname(__file__), "assets/stages/dialogs", url)
+        )
         self.computations = []
         self.renderings = []
         

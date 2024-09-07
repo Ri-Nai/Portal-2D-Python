@@ -23,12 +23,32 @@ class Bullet(Entity):
         # print(self.velocity.magnitude())
         player = Game.get_instance().view.player
         GLaDOS = Game.get_instance().view.GLaDOS
-        direction = self.velocity.normalize()
+        direction = self.velocity.normalize().round()
         length = self.velocity.magnitude()
+        flag = self.checkPortal(self.velocity)
+        if flag:
+            self.type = flag >> 1
+        else:
+            self.hitbox += self.velocity
+            centered_position = self.hitbox.get_center()
+            if self.type != -1 and GLaDOS.contains_point(centered_position):
+                GLaDOS.blood -= 1
+                self.destroy()
+                return
+            elif self.type == -1 and player.hitbox.contains_point(centered_position):
+                player.blood -= 1
+                self.destroy()
+                return
+            super_edges = Game.get_instance().map_manager.super_edges
+            for edge in super_edges:
+                if edge.contains_point(centered_position):
+                    self.destroy()
+                    return
+        """
         for i in range(int(length)):
             flag = self.checkPortal(direction)
             if flag:
-                direction = self.velocity.normalize()
+                direction = self.velocity.normalize().round()
                 self.type = flag >> 1
                 continue
             # self.hitbox.position += direction
@@ -48,6 +68,7 @@ class Bullet(Entity):
                 if edge.contains_point(centered_position):
                     self.destroy()
                     return
+        """
 
     def destroy(self):
         self.destroyed = True

@@ -15,7 +15,7 @@ class GLaDOS(Hitbox):
             GLaDOS_X,
             GLaDOS_Y,
         )
-        self.stillAlive = still_alive
+        self.still_alive = still_alive
         self.shootingBuffetTime = 60
         self.movingBufferTime = 600
         self.tragetPosition = self.get_position()
@@ -25,17 +25,17 @@ class GLaDOS(Hitbox):
         from Entities.bullet import Bullet
 
         self.bullets: list[Bullet] = []
-        self.shootingStyle = 0
+        self.shootingStyle = 3
         self.shootingFormat = [
             self.shootingTrack,
             self.shootingRound,
             self.shootingRect,
             self.shootingFlower,
         ]
-        self.baseAngle = 0
+        self.base_angle = 0
 
     def draw(self):
-        if not self.stillAlive:
+        if not self.still_alive:
             return
         from game import Game
 
@@ -54,8 +54,8 @@ class GLaDOS(Hitbox):
             i.draw()
 
     def update(self):
-        # print(self.stillAlive)
-        if not self.stillAlive:
+        # print(self.still_alive)
+        if not self.still_alive:
             return
 
         from Entities.player import player_size
@@ -87,7 +87,7 @@ class GLaDOS(Hitbox):
         # print(len(self.bullets))
         self.bullets = [i for i in self.bullets if not i.destroyed]
         if self.blood <= 0:
-            self.stillAlive = False
+            self.still_alive = False
             from game import Game
             Game.get_instance().switch_view("over.json")
 
@@ -108,8 +108,9 @@ class GLaDOS(Hitbox):
                 RANDOM(left, right),
                 RANDOM(top, bottom),
             )
-            direction = player.hitbox.get_center() - new_position
-            velocity = direction.normalize().scale(RANDOM(0.5, 5))
+            direction = player.hitbox.get_center() + new_position.scale(-1)
+            velocity = direction.normalize().scale(RANDOM(1, 5))
+            print(direction.normalize())
             from Entities.bullet import Bullet
 
             self.bullets.append(Bullet(new_position, velocity, 3))
@@ -161,19 +162,19 @@ class GLaDOS(Hitbox):
 
     def shootingFlower(self):
         center = self.get_center()
-        numBullets = int(RANDOM(36, 36 + 20))
-        angle_step = 27
-        angleOffset = RANDOM(0, 360)
-        for i in range(1, numBullets + 1):
-            angle = angleOffset + self.baseAngle + i * angle_step
+        num_bullets = int(RANDOM(36, 36 + 20))
+        angle_step = 23
+        angle_offset = RANDOM(0, 360)
+        for i in range(1, num_bullets + 1):
+            angle = angle_offset + self.base_angle + i * angle_step
             radius = i * 2
             direction = Vector(COS(angle), -SIN(angle)).scale(radius)
-            velocity = direction.normalize().scale((radius / 10) * (1 + i / 100))
+            velocity = direction.scale((1 + i / 100) / radius ** 0.5 * RANDOM(0.5, 1))
             from Entities.bullet import Bullet
             self.bullets.append(Bullet(center + direction, velocity, 2))
-        self.baseAngle += angle_step * RANDOM(0.8, 1.2)
+        self.base_angle += angle_step * RANDOM(0.8, 1.2)
     def draw_blood(self):
-        if not self.stillAlive:
+        if not self.still_alive:
             return
         from game import Game
         # 绘制玩家和GLaDOS的血条,就红条就行了,玩家的在下,GLaDOS的在上,用红色画,没有素材

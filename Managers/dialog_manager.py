@@ -6,17 +6,25 @@ class DialogManager:
         self.font_path = "./assets/fonts/SourceHanSerifSC-VF.otf"
         self.font_size = 24
         self.font = pygame.font.Font(self.font_path, self.font_size)
+        self.font.bold = True
         self.active = False
         self.dialogs = []
         self.current_dialog_index = 0
         self.text_surface = None
 
         # 初始化对话框位置和大小
-        self.background_color = (0, 0, 0)
+        self.background_color = (10, 10, 10)
         self.text_color = (255, 255, 255)
-
+    def load(self, url):
+        from game import Game
+        dialog_data = Game.get_instance().data_manager.loadJSON(url)
+        if not dialog_data: return
+        dialog_data = dialog_data["texts"]
+        self.show(dialog_data)
     def show(self, dialogs):
         """接受一个对话列表"""
+        if not dialogs:
+            return
         self.active = True
         self.dialogs = dialogs
         self.current_dialog_index = 0
@@ -75,13 +83,18 @@ class DialogManager:
         screen_width, screen_height = screen.get_size()
 
         # 对话框的固定位置和大小，放置在屏幕的下半部分
-        dialog_width, dialog_height = 600, 150
+        dialog_width, dialog_height = 800, 150
         dialog_x = (screen_width - dialog_width) // 2
         dialog_y = screen_height - dialog_height - 20  # 屏幕底部上方20像素
         self.rect = pygame.Rect(dialog_x, dialog_y, dialog_width, dialog_height)
 
+        background_surface = pygame.Surface((dialog_width, dialog_height))
+        background_surface.set_alpha(180)  # 设置透明度
+        background_surface.fill(self.background_color)  # 填充背景颜色
         # 绘制背景框
-        Game.get_instance().draw_rect(self.background_color, self.rect)
+        # Game.get_instance().draw_rect(self.background_color, self.rect)
+        Game.get_instance().draw_image(background_surface, self.rect)
+        # Game.get_instance().screen(background_surface, self.rect)
 
         # 在对话框内水平和垂直居中绘制文本
         text_x = self.rect.x + (self.rect.width - self.text_surface.get_width()) // 2
