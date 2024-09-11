@@ -57,6 +57,9 @@ class GLaDOS(Hitbox):
         # print(self.still_alive)
         if not self.still_alive:
             return
+        from game import Game
+        if Game.get_instance().view.player.block_move:
+            return
 
         from Entities.player import player_size
 
@@ -88,7 +91,6 @@ class GLaDOS(Hitbox):
         self.bullets = [i for i in self.bullets if not i.destroyed]
         if self.blood <= 0:
             self.still_alive = False
-            from game import Game
             Game.get_instance().switch_view("over.json")
 
     def shootingTrack(self):
@@ -177,13 +179,14 @@ class GLaDOS(Hitbox):
         if not self.still_alive:
             return
         from game import Game
-        # 绘制玩家和GLaDOS的血条,就红条就行了,玩家的在下,GLaDOS的在上,用红色画,没有素材
-        Game.get_instance().draw_rect("white", Hitbox(640 - 200, 30, 400, 30))
-        Game.get_instance().draw_rect("red", Hitbox(640 - 200, 30, 400 * self.blood / blood_limit, 30))
+        Game.get_instance().draw_rect("black", Hitbox(640 - 200 - 3, 5 - 3, 400 + 6, 30 + 6))
+        Game.get_instance().draw_rect("white", Hitbox(640 - 200 - 1, 5 - 1, 400 + 2, 30 + 2))
+        Game.get_instance().draw_rect("red", Hitbox(640 - 200, 5, 400 * self.blood / blood_limit, 30))
         player = Game.get_instance().view.player
 
-        Game.get_instance().draw_rect("white", Hitbox(640 - 200, 660, 400, 30))
-        Game.get_instance().draw_rect("red", Hitbox(640 - 200, 660, 400 * player.blood / blood_limit, 30))
+        Game.get_instance().draw_rect("black", Hitbox(640 - 200 - 3, 685 - 3, 400 + 6, 30 + 6))
+        Game.get_instance().draw_rect("white", Hitbox(640 - 200 - 1, 685 - 1, 400 + 2, 30 + 2))
+        Game.get_instance().draw_rect("red", Hitbox(640 - 200, 685, 400 * player.blood / blood_limit, 30))
 
 def COS(angle):
     import math

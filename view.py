@@ -78,12 +78,12 @@ class View:
 
         self.renderings.append(self.map_manager.draw)
         self.renderings.append(self.events.draw)
-        for entity in self.entities:
-            self.renderings.append(entity.draw)
         
         self.renderings.append(self.GLaDOS.draw)
+        for entity in self.entities:
+            self.renderings.append(entity.draw)
         self.renderings.append(self.portal_gun.draw)
-        self.renderings.append(self.GLaDOS.draw_blood)
+        # self.renderings.append(self.GLaDOS.draw_blood)
 
     def update(self):
         for computation in self.computations:
@@ -94,3 +94,4 @@ class View:
             rendering()
         self.portals[0].draw()
         self.portals[1].draw()
+        self.GLaDOS.draw_blood()
