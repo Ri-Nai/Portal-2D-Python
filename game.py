@@ -115,7 +115,7 @@ class Game:
         elif "over" in url:
             pygame.mixer.stop()
             pygame.mixer.music.load("assets/audios/bgms/村上純 - かえり道.mp3")
-            pygame.mixer.music.play()
+            pygame.mixer.music.play(-1)
 
     def loop(self):
         # 游戏主循环代码
